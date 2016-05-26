@@ -1,3 +1,5 @@
+# Library for various Proteus DNS API calls
+#
 require 'savon'
 require 'yaml'
 
@@ -84,10 +86,3 @@ else
 end
 
 puts "Proteus System Info: #{get_system_info}" if @debug
-
-host_fqdn = 'tenyotest1.its.yale.internal'
-host_ip = '172.16.1.99'
-
-add_host_record(host_fqdn, host_ip)
-add_alias_record('tenyotest.its.yale.internal',host_fqdn)
-

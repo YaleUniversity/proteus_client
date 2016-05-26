@@ -9,6 +9,7 @@ GEM
       builder (>= 2.1.2)
     httpi (2.4.1)
       rack
+    mini_portile2 (2.0.0)
     nokogiri (1.6.7.2)
     nori (2.6.0)
     rack (1.6.4)
@@ -28,4 +29,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  mini_portile2 (~> 2.0.0)
   savon (~> 2.0)
