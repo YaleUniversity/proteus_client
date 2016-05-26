@@ -1,0 +1,11 @@
+## Bluecat Proteus API client
+
+  Simple ruby API client for Proteus
+
+### Run
+```
+cp -p config/config.yml.example config/config.yml
+# edit credentials in config/config.yml
+bundle install
+bundle exec ruby dns.rb
+```
