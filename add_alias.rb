@@ -15,4 +15,6 @@ require_relative 'dns'
 alias = ARGV[0]
 host_fqdn = ARGV[1]
 
+puts "Adding alias record #{alias} for #{host_fqdn} ... "
+
 add_alias_record(alias, host_fqdn)

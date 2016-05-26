@@ -15,4 +15,6 @@ require_relative 'dns'
 host_fqdn = ARGV[0]
 host_ip = ARGV[1]
 
+puts "Adding host record #{host_fqdn} for #{host_ip} ... "
+
 add_host_record(host_fqdn, host_ip)
