@@ -3,5 +3,5 @@ bluecat:
   user: 'api_user'
   password: 'xxx'
   default_viewid: 1637279
-logging:
-  debug: false
+log:
+  level: warn

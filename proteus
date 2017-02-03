@@ -1,0 +1,87 @@
+#!/usr/bin/env ruby
+
+require 'awesome_print'
+require 'gli'
+require 'yaml'
+require_relative 'lib/proteus'
+
+include GLI::App
+
+program_desc '#AllyourDNSRecords are belong to us.'
+
+desc 'Location of the config file'
+flag [:c, :config_file], default_value: 'config/config.yml'
+
+pre do |global_options, _command, _options, _args|
+  $config = YAML.load_file(global_options[:config_file])
+end
+
+def proteus
+  options = $config['bluecat']
+  log_level = $config['log']['level']
+  Proteus::Client.new(options, log_level)
+end
+
+def validate_argnum(required, given)
+  raise "command requires #{required} args" unless required == given
+end
+
+desc 'Displays system info'
+command :info do |c|
+  c.action do
+    ap proteus.system_info
+  end
+end
+
+desc 'Show DNS record(s)'
+command :show do |c|
+  c.desc 'shows a host record'
+  c.arg_name 'fqdn'
+  c.command :host do |a|
+    a.action do |_global_options, _options, args|
+      validate_argnum(1, args.length)
+      ap proteus.get_entity_by_name(args[0], PROTEUS::TYPE::HOSTRECORD)
+    end
+  end
+
+  c.desc 'shows an alias record'
+  c.arg_name 'alias'
+  c.command :alias do |a|
+    a.action do |_global_options, _options, args|
+      validate_argnum(1, args.length)
+      ap proteus.get_entity_by_name(args[0], PROTEUS::TYPE::CNAMERECORD)
+    end
+  end
+end
+
+desc 'Add a DNS record'
+command :add do |c|
+  c.desc 'adds an alias (CNAME)'
+  c.arg_name 'alias_record linked_record'
+  c.command :alias do |a|
+    a.action do |_global_options, _options, args|
+      validate_argnum(2, args.length)
+      ap proteus.add_alias_record(args[0], args[1])
+    end
+  end
+
+  c.desc 'adds an host record (A)'
+  c.arg_name 'fqdn ip'
+  c.command :host do |a|
+    a.action do |_global_options, _options, args|
+      validate_argnum(2, args.length)
+      ap proteus.add_host_record(args[0], args[1])
+    end
+  end
+
+  c.desc 'adds an external record'
+  c.arg_name 'name'
+  c.command :external do |a|
+    a.action do |_global_options, _options, args|
+      validate_argnum(1, args.length)
+      ap proteus.add_external_host_record(args[0])
+    end
+  end
+end
+
+exit run(ARGV)
