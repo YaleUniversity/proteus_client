@@ -10,12 +10,26 @@
   setup. All you need is the URL, API username/password and the View ID in Proteus. In our case the
   View ID is the id of the default DNS view as that's where everything goes.
 
-## Setup
+## Installation
+
+Add the following to your `Gemfile`
+
 ```
-cp -p config/config.yml.example config/config.yml
-# edit credentials in config/config.yml
-bundle install
+gem 'proteus', :git => 'git://git.yale.edu/inf-sa/proteus_client.git'
 ```
+
+or from the command line:
+
+```
+git clone git://git.yale.edu/inf-sa/proteus_client.git
+cd proteus_client &&  gem build proteus.gemspec
+gem install proteus-*.gem
+
+```
+
+## Common options
+
+The proteus command line utility can be configured via files, environment variables or flags.  See `proteus help` for details.
 
 ## Usage
 
@@ -25,17 +39,17 @@ Add will add a record to Proteus.
 
 #### host (A) record
 ```
-./proteus add host myhost.its.yale.internal 172.16.1.99
+proteus add host myhost.its.yale.internal 172.16.1.99
 ```
 
 #### alias (CNAME)
 ```
-./proteus add alias myalias.its.yale.internal myhost.its.yale.internal
+proteus add alias myalias.its.yale.internal myhost.its.yale.internal
 ```
 
 #### external record (outside of proteus managed zones)
 ```
-./proteus add external foobar.someother.domain.com
+proteus add external foobar.someother.domain.com
 ```
 
 ### Search:
@@ -44,17 +58,17 @@ Search will search for a keyword and return a list of items that match that keyw
 
 #### host (A) record
 ```
-./proteus search host keyword
+proteus search host keyword
 ```
 
 #### alias (CNAME)
 ```
-./proteus search alias keyword
+proteus search alias keyword
 ```
 
 #### external record (outside of proteus managed zones)
 ```
-./proteus search external keyword
+proteus search external keyword
 ```
 
 ### Show:
@@ -63,7 +77,7 @@ Show will show the details for an entity in Proteus.
  
 #### by id
 ```
-./proteus show id
+proteus show id
 ```
 
 ### Delete:
@@ -74,7 +88,19 @@ Delete will remove an entity from Proteus.
  
 #### by id
 ```
-./proteus delete id
+proteus delete id
+```
+
+### Example config file:
+
+```yaml
+bluecat:
+  url: 'https://proteus.its.example.com'
+  user: 'api_user'
+  password: 'xxx'
+  default_viewid: 1234567
+log:
+  level: warn
 ```
 
 ### Authors

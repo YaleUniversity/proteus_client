@@ -10,6 +10,8 @@ module Proteus
 
     attr_accessor :user, :password, :view_id
 
+    # Initialize a proteus [soap] client.  Expect the options hash to contain:
+    # user, password, default_viewid, url
     def initialize(options = {}, log_level = 'warn')
       @logger = Logger.new(STDOUT)
       @logger.level = Object.const_get("Logger::#{log_level.upcase}")

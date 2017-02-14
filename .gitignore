@@ -1,2 +1,3 @@
 config.yml
 .ruby-*
+rspec.xml
