@@ -1,5 +1,13 @@
 #!/usr/bin/env ruby
 
+####
+# proteus cli -
+# Provides frontend CLI access to the Bluecat proteus API
+#
+# Usage:
+# ./proteus [global options] command [command options] [arguments...]
+#
+
 require 'awesome_print'
 require 'gli'
 require 'yaml'
@@ -12,14 +20,19 @@ program_desc '#AllyourDNSRecords are belong to us.'
 desc 'Location of the config file'
 flag [:c, :config_file], default_value: 'config/config.yml'
 
+desc 'Get long form output where applicable'
+switch [:l, :long], default_value: false
+
 pre do |global_options, _command, _options, _args|
   $config = YAML.load_file(global_options[:config_file])
 end
 
-def proteus
+around do |_global_options, _command,v_options, _args,code|
   options = $config['bluecat']
   log_level = $config['log']['level']
-  Proteus::Client.new(options, log_level)
+  @proteus = Proteus::Client.new(options, log_level)
+  code.call
+  @proteus.logout!
 end
 
 def validate_argnum(required, given)
@@ -28,29 +41,47 @@ end
 
 desc 'Displays system info'
 command :info do |c|
-  c.action do
-    ap proteus.system_info
+  c.action do |_global_options, _options, args|
+    puts 'System Information:'
+    ap @proteus.system_info
   end
 end
 
-desc 'Show DNS record(s)'
-command :show do |c|
-  c.desc 'shows a host record'
-  c.arg_name 'fqdn'
+desc 'Search DNS record(s) (do not include domain!)'
+command :search do |c|
+  c.desc 'searches for a host record'
+  c.arg_name 'keyword'
   c.command :host do |a|
     a.action do |_global_options, _options, args|
       validate_argnum(1, args.length)
-      ap proteus.get_entity_by_name(args[0], PROTEUS::TYPE::HOSTRECORD)
+      ap @proteus.search_by_object_types(args[0], Proteus::Types::HOSTRECORD)
     end
   end
 
-  c.desc 'shows an alias record'
-  c.arg_name 'alias'
+  c.desc 'searches for an alias record'
+  c.arg_name 'keyword'
   c.command :alias do |a|
     a.action do |_global_options, _options, args|
       validate_argnum(1, args.length)
-      ap proteus.get_entity_by_name(args[0], PROTEUS::TYPE::CNAMERECORD)
+      ap @proteus.search_by_object_types(args[0], Proteus::Types::CNAMERECORD)
     end
+  end
+
+  c.desc 'searches for an external record'
+  c.arg_name 'keyword'
+  c.command :external do |a|
+    a.action do |_global_options, _options, args|
+      validate_argnum(1, args.length)
+      ap @proteus.search_by_object_types(args[0], Proteus::Types::EXTERNALHOST)
+    end
+  end
+end
+
+desc 'Show DNS record by id'
+command :show do |c|
+  c.action do |_global_options, _options, args|
+    validate_argnum(1, args.length)
+    ap @proteus.get_entity_by_id(args[0])
   end
 end
 
@@ -61,7 +92,7 @@ command :add do |c|
   c.command :alias do |a|
     a.action do |_global_options, _options, args|
       validate_argnum(2, args.length)
-      ap proteus.add_alias_record(args[0], args[1])
+      ap @proteus.add_alias_record(args[0], args[1])
     end
   end
 
@@ -70,7 +101,7 @@ command :add do |c|
   c.command :host do |a|
     a.action do |_global_options, _options, args|
       validate_argnum(2, args.length)
-      ap proteus.add_host_record(args[0], args[1])
+      ap @proteus.add_host_record(args[0], args[1])
     end
   end
 
@@ -79,8 +110,16 @@ command :add do |c|
   c.command :external do |a|
     a.action do |_global_options, _options, args|
       validate_argnum(1, args.length)
-      ap proteus.add_external_host_record(args[0])
+      ap @proteus.add_external_host_record(args[0])
     end
+  end
+end
+
+desc 'Delete DNS record by id'
+command :delete do |c|
+  c.action do |_global_options, _options, args|
+    validate_argnum(1, args.length)
+    ap @proteus.delete(args[0])
   end
 end
 

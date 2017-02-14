@@ -1,3 +1,3 @@
 # Collect and require Proteus libraries
-require_relative 'proteus/client'
-require_relative 'proteus/constants'
+require 'require_all'
+require_all 'lib'

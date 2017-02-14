@@ -5,6 +5,9 @@ module Proteus
     require 'logger'
     require 'savon'
 
+    include Proteus::Actions
+    include Proteus::Helpers
+
     attr_accessor :user, :password, :view_id
 
     def initialize(options = {}, log_level = 'warn')
@@ -21,6 +24,7 @@ module Proteus
         log true
         log_level log_level.to_sym
       end
+
       @cookies = login!
     end
 
@@ -30,82 +34,13 @@ module Proteus
     #   <part name="password" type="xsd:string"/>
     # </message>
     def login!
-      @client.call(:login, message: { username: @user,
-                                      password: @password }).http.cookies
+      @client.call(:login, message: { username: @user, password: @password }).http.cookies
     end
 
-    # add host record
-    # <message name="ProteusAPI_addHostRecord">
-    #   <part name="viewId" type="xsd:long"/>
-    #   <part name="absoluteName" type="xsd:string"/>
-    #   <part name="addresses" type="xsd:string"/>
-    #   <part name="ttl" type="xsd:long"/>
-    #   <part name="properties" type="xsd:string"/>
-    # </message>
-    def add_host_record(fqdn, ip, ttl = -1, properties = '')
-      response = @client.call(:add_host_record) do |ctx|
-        ctx.cookies @cookies
-        ctx.message viewId: @view_id, absoluteName: fqdn, addresses: ip,
-                    ttl: ttl, properties: properties
-      end
-      @logger.debug("add_host_record: #{response.body.inspect}")
-      response.body
-    end
-
-    # add alias record
-    # <message name="ProteusAPI_addAliasRecord">
-    #   <part name="viewId" type="xsd:long"/>
-    #   <part name="absoluteName" type="xsd:string"/>
-    #   <part name="linkedRecordName" type="xsd:string"/>
-    #   <part name="ttl" type="xsd:long"/>
-    #   <part name="properties" type="xsd:string"/>
-    # </message>
-    def add_alias_record(cname, linked, ttl = -1, properties = '')
-      response = @client.call(:add_alias_record) do |ctx|
-        ctx.cookies @cookies
-        ctx.message viewId: @view_id, absoluteName: cname,
-                    linkedRecordName: linked, ttl: ttl, properties: properties
-      end
-      @logger.debug("add_alias_record: #{response.body.inspect}")
-      response.body
-    end
-
-    # add external host record
-    # <message name="ProteusAPI_addExternalHostRecord">
-    #   <part name="viewId" type="xsd:long"/>
-    #   <part name="name" type="xsd:string"/>
-    #   <part name="properties" type="xsd:string"/>
-    # </message>
-    def add_external_host_record(name, properties = '')
-      response = @client.call(:add_external_host_record) do |ctx|
-        ctx.cookies @cookies
-        ctx.message viewId: @view_id, name: name, properties: properties
-      end
-      @logger.debug("add_external_host_record: #{response.body.inspect}")
-      response.body
-    end
-
-    # get entity by name
-    # <message name="ProteusAPI_getEntityByName">
-    #   <part name="parentId" type="xsd:long"/>
-    #   <part name="name" type="xsd:string"/>
-    #   <part name="type" type="xsd:string"/>
-    # </message>
-    def get_entity_by_name(name, type)
-      response = @client.call(:get_entity_by_name) do |ctx|
-        ctx.cookies @cookies
-        ctx.message parent_id: @view_id, name: name, type: type
-      end
-      @logger.debug("get_entity_by_name: #{response.body.inspect}")
-      response.body
-    end
-
-    # gets some system information
-    # <message name="ProteusAPI_getSystemInfoResponse">
-    #   <part name="return" type="xsd:string"/>
-    # </message>
-    def system_info
-      @client.call(:get_system_info) { |ctx| ctx.cookies @cookies }.body
+    # logout of proteus api
+    # <message name="ProteusAPI_logout"/>
+    def logout!
+      @client.call(:logout) { |ctx| ctx.cookies @cookies }
     end
   end
 end
