@@ -57,6 +57,7 @@ around do |_global_options, _command,v_options, _args,code|
   options = $config['bluecat']
   log_level = $config['log']['level']
   @proteus = Proteus::Client.new(options, log_level)
+  @proteus.login!
   code.call
   @proteus.logout!
 end
