@@ -11,26 +11,53 @@
 require 'awesome_print'
 require 'gli'
 require 'yaml'
-require_relative 'lib/proteus'
+require 'proteus'
 
 include GLI::App
 
 program_desc '#AllyourDNSRecords are belong to us.'
 
-desc 'Location of the config file'
-flag [:c, :config_file], default_value: 'config/config.yml'
+desc 'Location of a config file (overrides environment variables and command line flags)'
+flag [:c, :config_file], type: String
 
-desc 'Get long form output where applicable'
-switch [:l, :long], default_value: false
+desc 'Url to proteus (not including URI to the WSDL) ENV:PROTEUS_URL'
+flag [:u, :url], type: String
+
+desc 'Username to use when connecting to proteus ENV:PROTEUS_USER'
+flag [:a, :username], type: String
+
+desc 'Password to use when connecting to proteus ENV:PROTEUS_PASS'
+flag [:p, :password], type: String
+
+desc 'Default view id to use when connecting to proteus ENV:PROTEUS_VIEWID'
+flag [:v, :viewid], type: String
+
+desc 'Log level (debug, info, warn, error)'
+flag [:l, :loglevel], type: String, default_value: 'warn'
 
 pre do |global_options, _command, _options, _args|
-  $config = YAML.load_file(global_options[:config_file])
+  if global_options[:config_file]
+    $config = YAML.load_file(global_options[:config_file])
+  else
+    $config = {
+      'bluecat' => {
+        'url' => global_options[:url] || ENV['PROTEUS_URL'],
+        'user' => global_options[:user] || ENV['PROTEUS_USER'],
+        'password' => global_options[:password] || ENV['PROTEUS_PASS'],
+        'default_viewid' => global_options[:viewid] || ENV['PROTEUS_VIEWID']
+      },
+      'log' => {
+          'level' => global_options[:loglevel]
+      }
+    }
+  end
 end
 
 around do |_global_options, _command,v_options, _args,code|
   options = $config['bluecat']
   log_level = $config['log']['level']
   @proteus = Proteus::Client.new(options, log_level)
+  @proteus.login!
   code.call
   @proteus.logout!
 end

@@ -1,0 +1,6 @@
+<env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'>
+  <env:Header></env:Header>
+  <env:Body>
+    <tns:logoutResponse xmlns:tns='http://api.proteus.bluecatnetworks.com'></tns:logoutResponse>
+  </env:Body>
+</env:Envelope>

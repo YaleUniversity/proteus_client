@@ -1,0 +1,4099 @@
+<definitions name='ProteusAPI' targetNamespace='http://api.proteus.bluecatnetworks.com' xmlns='http://schemas.xmlsoap.org/wsdl/' xmlns:ns1='http://jaxb.dev.java.net/array' xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' xmlns:tns='http://api.proteus.bluecatnetworks.com' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+ <types>
+  <xs:schema targetNamespace='http://jaxb.dev.java.net/array' version='1.0' xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+   <xs:complexType final='#all' name='stringArray'>
+    <xs:sequence>
+     <xs:element maxOccurs='unbounded' minOccurs='0' name='item' nillable='true' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType final='#all' name='longArray'>
+    <xs:sequence>
+     <xs:element maxOccurs='unbounded' minOccurs='0' name='item' nillable='true' type='xs:long'/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+  <xs:schema targetNamespace='http://api.proteus.bluecatnetworks.com' version='1.0' xmlns:tns='http://api.proteus.bluecatnetworks.com' xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+   <xs:complexType name='APIEntity'>
+    <xs:sequence>
+     <xs:element name='id' type='xs:long'/>
+     <xs:element minOccurs='0' name='name' nillable='true' type='xs:string'/>
+     <xs:element minOccurs='0' name='properties' nillable='true' type='xs:string'/>
+     <xs:element minOccurs='0' name='type' nillable='true' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='APIDeploymentOption'>
+    <xs:sequence>
+     <xs:element name='id' type='xs:long'/>
+     <xs:element minOccurs='0' name='name' nillable='true' type='xs:string'/>
+     <xs:element minOccurs='0' name='properties' nillable='true' type='xs:string'/>
+     <xs:element minOccurs='0' name='type' nillable='true' type='xs:string'/>
+     <xs:element minOccurs='0' name='value' nillable='true' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='APIUserDefinedField'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='defaultValue' nillable='true' type='xs:string'/>
+     <xs:element minOccurs='0' name='displayName' type='xs:string'/>
+     <xs:element name='hideFromSearch' type='xs:boolean'/>
+     <xs:element minOccurs='0' name='name' type='xs:string'/>
+     <xs:element minOccurs='0' name='predefinedValues' nillable='true' type='xs:string'/>
+     <xs:element name='renderAsRadioButton' type='xs:boolean'/>
+     <xs:element name='required' type='xs:boolean'/>
+     <xs:element minOccurs='0' name='type' type='xs:string'/>
+     <xs:element minOccurs='0' name='validatorProperties' nillable='true' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='APIData'>
+    <xs:sequence>
+     <xs:element minOccurs='0' name='name' nillable='true' type='xs:string'/>
+     <xs:element minOccurs='0' name='properties' nillable='true' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='APIAccessRight'>
+    <xs:sequence>
+     <xs:element name='entityId' type='xs:long'/>
+     <xs:element minOccurs='0' name='overrides' nillable='true' type='xs:string'/>
+     <xs:element minOccurs='0' name='properties' type='xs:string'/>
+     <xs:element name='userId' type='xs:long'/>
+     <xs:element minOccurs='0' name='value' nillable='true' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name='APIDeploymentRole'>
+    <xs:sequence>
+     <xs:element name='entityId' type='xs:long'/>
+     <xs:element name='id' type='xs:long'/>
+     <xs:element minOccurs='0' name='properties' nillable='true' type='xs:string'/>
+     <xs:element name='serverInterfaceId' type='xs:long'/>
+     <xs:element minOccurs='0' name='service' nillable='true' type='xs:string'/>
+     <xs:element minOccurs='0' name='type' nillable='true' type='xs:string'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType final='#all' name='APIEntityArray'>
+    <xs:sequence>
+     <xs:element maxOccurs='unbounded' minOccurs='0' name='item' nillable='true' type='tns:APIEntity'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType final='#all' name='APIDeploymentOptionArray'>
+    <xs:sequence>
+     <xs:element maxOccurs='unbounded' minOccurs='0' name='item' nillable='true' type='tns:APIDeploymentOption'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType final='#all' name='APIUserDefinedFieldArray'>
+    <xs:sequence>
+     <xs:element maxOccurs='unbounded' minOccurs='0' name='item' nillable='true' type='tns:APIUserDefinedField'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType final='#all' name='APIAccessRightArray'>
+    <xs:sequence>
+     <xs:element maxOccurs='unbounded' minOccurs='0' name='item' nillable='true' type='tns:APIAccessRight'/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType final='#all' name='APIDeploymentRoleArray'>
+    <xs:sequence>
+     <xs:element maxOccurs='unbounded' minOccurs='0' name='item' nillable='true' type='tns:APIDeploymentRole'/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+ </types>
+ <message name='ProteusAPI_deleteDHCP6ServiceDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_searchByCategory'>
+  <part name='keyword' type='xsd:string'></part>
+  <part name='category' type='xsd:string'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_createXHAPair'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='activeServerId' type='xsd:long'></part>
+  <part name='passiveServerId' type='xsd:long'></part>
+  <part name='activeServerNewIPv4Address' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addResourceRecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='rdata' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDNSDeploymentRole'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='serverInterfaceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_deleteDHCPClientDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_addTFTPFolder'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_deleteDeviceInstanceResponse'></message>
+ <message name='ProteusAPI_addDHCP4RangeBySize'>
+  <part name='networkId' type='xsd:long'></part>
+  <part name='offset' type='xsd:string'></part>
+  <part name='size' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getNextAvailableIP4AddressResponse'>
+  <part name='return' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_deleteDNSDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDHCP6ServiceDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getZonesByHint'>
+  <part name='containerId' type='xsd:long'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getServerForRole'>
+  <part name='roleId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getMaxAllowedRange'>
+  <part name='rangeId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDeploymentRolesResponse'>
+  <part name='return' type='tns:APIDeploymentRoleArray'></part>
+ </message>
+ <message name='ProteusAPI_unlinkEntitiesResponse'></message>
+ <message name='ProteusAPI_addZoneTemplate'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addHostRecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='addresses' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getProbeData'>
+  <part name='definedProbe' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCPDeploymentRole'>
+  <part name='role' type='tns:APIDeploymentRole'></part>
+ </message>
+ <message name='ProteusAPI_addParentBlockWithProperties'>
+  <part name='blockOrNetworkIds' type='ns1:longArray'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addIP6BlockByMACAddressResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDNSDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_updateDNSDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_addVendorProfile'>
+  <part name='identifier' type='xsd:string'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='description' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getNextIP4AddressResponse'>
+  <part name='return' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_isAddressAllocated'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='ipAddress' type='xsd:string'></part>
+  <part name='macAddress' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_resizeRange'>
+  <part name='objectId' type='xsd:long'></part>
+  <part name='range' type='xsd:string'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_deleteAccessRightResponse'></message>
+ <message name='ProteusAPI_getDiscoveredDeviceHosts'>
+  <part name='policyId' type='xsd:long'></part>
+  <part name='deviceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceNetworksResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_addDeviceSubtype'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addNAPTRRecordResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getEntityByCIDR'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='cidr' type='xsd:string'></part>
+  <part name='type' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_linkEntities'>
+  <part name='entity1Id' type='xsd:long'></part>
+  <part name='entity2Id' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_delete'>
+  <part name='objectId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_deleteDNSDeploymentRoleForView'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='serverInterfaceId' type='xsd:long'></part>
+  <part name='viewId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addStartOfAuthorityResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addGenericRecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='rdata' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addUserGroupResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getServerForRoleResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_addTFTPFolderResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getAccessRightsForEntity'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_addDHCP4RangeBySizeResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getAccessRightResponse'>
+  <part name='return' type='tns:APIAccessRight'></part>
+ </message>
+ <message name='ProteusAPI_addDHCP6Range'>
+  <part name='networkId' type='xsd:long'></part>
+  <part name='start' type='xsd:string'></part>
+  <part name='end' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addNAPTRRecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='order' type='xsd:int'></part>
+  <part name='preference' type='xsd:int'></part>
+  <part name='service' type='xsd:string'></part>
+  <part name='regexp' type='xsd:string'></part>
+  <part name='replacement' type='xsd:string'></part>
+  <part name='flags' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_removeAdditionalIPAddressesResponse'></message>
+ <message name='ProteusAPI_clearIP6AddressResponse'>
+  <part name='return' type='xsd:boolean'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceMacAddressEntriesResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_addViewResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_tagEntity'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='tagId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getServerDeploymentRolesResponse'>
+  <part name='return' type='tns:APIDeploymentRoleArray'></part>
+ </message>
+ <message name='ProteusAPI_getEntityByNameResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_getAliasesByHint'>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_moveIPObject'>
+  <part name='objectId' type='xsd:long'></part>
+  <part name='address' type='xsd:string'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDHCPServiceDeploymentOptionResponse'>
+  <part name='return' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_addDHCPSubClass'>
+  <part name='matchClassId' type='xsd:long'></part>
+  <part name='matchValue' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDHCP6ClientDeploymentOptionResponse'>
+  <part name='return' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_failoverXHAResponse'></message>
+ <message name='ProteusAPI_addCustomOptionDefinition'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='optionId' type='xsd:long'></part>
+  <part name='optionType' type='xsd:string'></part>
+  <part name='allowMultiple' type='xsd:boolean'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_updateAccessRight'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='userId' type='xsd:long'></part>
+  <part name='value' type='xsd:string'></part>
+  <part name='overrides' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addIP4IPGroupByRange'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='start' type='xsd:string'></part>
+  <part name='end' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getProbeDataResponse'>
+  <part name='return' type='tns:APIData'></part>
+ </message>
+ <message name='ProteusAPI_updateBulkUdf'>
+  <part name='data' type='xsd:base64Binary'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addDeviceInstance'>
+  <part name='configName' type='xsd:string'></part>
+  <part name='deviceName' type='xsd:string'></part>
+  <part name='ipAddressMode' type='xsd:string'></part>
+  <part name='ipEntity' type='xsd:string'></part>
+  <part name='viewName' type='xsd:string'></part>
+  <part name='zoneName' type='xsd:string'></part>
+  <part name='recordName' type='xsd:string'></part>
+  <part name='macAddressMode' type='xsd:string'></part>
+  <part name='macEntity' type='xsd:string'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getAccessRightsForUserResponse'>
+  <part name='return' type='tns:APIAccessRightArray'></part>
+ </message>
+ <message name='ProteusAPI_addHostRecordResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getServerDeploymentRoles'>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_searchByObjectTypes'>
+  <part name='keyword' type='xsd:string'></part>
+  <part name='types' type='xsd:string'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_startProbeResponse'></message>
+ <message name='ProteusAPI_getDHCPDeploymentRole'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='serverInterfaceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_shareNetwork'>
+  <part name='networkId' type='xsd:long'></part>
+  <part name='tagId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getAccessRightsForEntityResponse'>
+  <part name='return' type='tns:APIAccessRightArray'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCPServiceDeploymentOption'>
+  <part name='option' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_addDHCP6ClientDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='value' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_quickDeployResponse'></message>
+ <message name='ProteusAPI_getSystemInfoResponse'>
+  <part name='return' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addBulkHostRecordResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_getDHCPVendorDeploymentOptionResponse'>
+  <part name='return' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_addDHCPMatchClassResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getKSK'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='format' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addDHCP6ServiceDeploymentOptionResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getIP6AddressResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_moveResourceRecordResponse'></message>
+ <message name='ProteusAPI_isMigrationRunningResponse'>
+  <part name='return' type='xsd:boolean'></part>
+ </message>
+ <message name='ProteusAPI_editXHAPair'>
+  <part name='xHAServerId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getNextAvailableIPRangeResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_addIP4BlockByCIDR'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='CIDR' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addTFTPGroup'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDHCPDeploymentRoleResponse'>
+  <part name='return' type='tns:APIDeploymentRole'></part>
+ </message>
+ <message name='ProteusAPI_addTagResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addEntityResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDeploymentRoles'>
+  <part name='entityId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getEntitiesResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCP6ClientDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_deleteWithOptionsResponse'></message>
+ <message name='ProteusAPI_getEntityByName'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='type' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_updateDNSDeploymentOption'>
+  <part name='option' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_addIP6NetworkByPrefix'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='prefix' type='xsd:string'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_migrateFile'>
+  <part name='filename' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addIP4NetworkResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_deleteDHCP6ClientDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_reassignIP6Address'>
+  <part name='oldAddressId' type='xsd:long'></part>
+  <part name='destination' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_assignNextAvailableIP4AddressResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceInterfaces'>
+  <part name='policyId' type='xsd:long'></part>
+  <part name='deviceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addDHCPSubClassResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_deleteDHCPServiceDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_getEntityByIdResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_addDHCPVendorDeploymentOptionResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_mergeBlocksWithParentResponse'></message>
+ <message name='ProteusAPI_addAliasRecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='linkedRecordName' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addIP4BlockByRangeResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addBulkHostRecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='networkId' type='xsd:long'></part>
+  <part name='startAddress' type='xsd:string'></part>
+  <part name='numberOfAddresses' type='xsd:int'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addTFTPDeploymentRole'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='serverId' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getServerDeploymentStatus'>
+  <part name='serverId' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getEntityById'>
+  <part name='id' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_unshareNetwork'>
+  <part name='networkId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getEntitiesByNameUsingOptionsResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_getDHCPVendorDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='optionId' type='xsd:long'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_resizeRangeResponse'></message>
+ <message name='ProteusAPI_getParent'>
+  <part name='entityId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getAliasesByHintResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_addIP4NetworkTemplate'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_mergeSelectedBlocksOrNetworks'>
+  <part name='blockOrNetworkIds' type='ns1:longArray'></part>
+  <part name='blockOrNetworkToKeep' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addTag'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_deleteDHCP6ClientDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_updateWithOptionsResponse'></message>
+ <message name='ProteusAPI_updateDHCPServiceDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_addIP4IPGroupBySize'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='size' type='xsd:int'></part>
+  <part name='positionRangeBy' type='xsd:string'></part>
+  <part name='positionValue' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addCustomOptionDefinitionResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDevice'>
+  <part name='policyId' type='xsd:long'></part>
+  <part name='deviceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addIP6BlockByPrefixResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addMACAddress'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='macAddress' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getMACAddressesInPoolResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_getHostRecordsByHint'>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDHCPClientDeploymentOptionResponse'>
+  <part name='return' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_getEntities'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_assignIP4AddressResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_clearIP6Address'>
+  <part name='addressId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addParentBlockWithPropertiesResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_deleteDNSDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_addTFTPGroupResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceNetworks'>
+  <part name='policyId' type='xsd:long'></part>
+  <part name='deviceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_importServerResponse'></message>
+ <message name='ProteusAPI_addParentBlockResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addDNSDeploymentRoleResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_deployServerServices'>
+  <part name='serverId' type='xsd:long'></part>
+  <part name='services' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_deleteDeviceInstance'>
+  <part name='configName' type='xsd:string'></part>
+  <part name='identifier' type='xsd:string'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_reapplyTemplateResponse'></message>
+ <message name='ProteusAPI_addDNSDeploymentOptionResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_deployServerServicesResponse'></message>
+ <message name='ProteusAPI_getSharedNetworks'>
+  <part name='tagId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_updateDNSDeploymentRoleResponse'></message>
+ <message name='ProteusAPI_loginResponse'></message>
+ <message name='ProteusAPI_assignOrUpdateTemplateResponse'></message>
+ <message name='ProteusAPI_addDHCPDeploymentRoleResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDHCP6ClientDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDeploymentOptionsResponse'>
+  <part name='return' type='tns:APIDeploymentOptionArray'></part>
+ </message>
+ <message name='ProteusAPI_addIP4BlockByCIDRResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getNetworkLinkedProperties'>
+  <part name='networkId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_updateDNSDeploymentRole'>
+  <part name='role' type='tns:APIDeploymentRole'></part>
+ </message>
+ <message name='ProteusAPI_getSharedNetworksResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_deleteDHCP6ServiceDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_deleteDHCPDeploymentRole'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='serverInterfaceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_logout'></message>
+ <message name='ProteusAPI_getNextAvailableIP4Address'>
+  <part name='parentId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getEntitiesByName'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_addGenericRecordResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addAliasRecordResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_splitIP4Network'>
+  <part name='networkId' type='xsd:long'></part>
+  <part name='numberOfParts' type='xsd:int'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addDeviceTypeResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addDHCP6ClientDeploymentOptionResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getLinkedEntitiesResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_getDHCP6ServiceDeploymentOptionResponse'>
+  <part name='return' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_addDHCPMatchClass'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='matchCriteria' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getIP4AddressResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_login'>
+  <part name='username' type='xsd:string'></part>
+  <part name='password' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCP6ClientDeploymentOption'>
+  <part name='option' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_addAccessRightResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCPClientDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_associateMACAddressWithPoolResponse'></message>
+ <message name='ProteusAPI_unshareNetworkResponse'></message>
+ <message name='ProteusAPI_addDeviceType'>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getSystemInfo'></message>
+ <message name='ProteusAPI_editXHAPairResponse'></message>
+ <message name='ProteusAPI_getNextAvailableIPRangesResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_update'>
+  <part name='entity' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCPVendorDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_moveIPObjectResponse'></message>
+ <message name='ProteusAPI_configureReplication'>
+  <part name='standbyServer' type='xsd:string'></part>
+  <part name='compressReplication' type='xsd:boolean'></part>
+  <part name='replicationQueueThreshold' type='xsd:long'></part>
+  <part name='replicationBreakThreshold' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getNetworkLinkedPropertiesResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_deleteDNSDeploymentRole'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='serverInterfaceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addMXRecordResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_breakXHAPairResponse'></message>
+ <message name='ProteusAPI_updateAccessRightResponse'></message>
+ <message name='ProteusAPI_getDeploymentOptions'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='optionTypes' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getAccessRight'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='userId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addServerResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_splitIP4NetworkResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_unlinkEntities'>
+  <part name='entity1Id' type='xsd:long'></part>
+  <part name='entity2Id' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_configureReplicationResponse'></message>
+ <message name='ProteusAPI_addTXTRecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='txt' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addDHCPVendorDeploymentOption'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='optionId' type='xsd:long'></part>
+  <part name='value' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addExternalHostRecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceVlansResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCPClientDeploymentOption'>
+  <part name='option' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_addDHCPServiceDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='value' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDevicesResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_addEnumNumber'>
+  <part name='enumZoneId' type='xsd:long'></part>
+  <part name='number' type='xsd:int'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addIP6NetworkByPrefixResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDHCPServiceDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getHostRecordsByHintResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_addDevice'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='deviceTypeId' type='xsd:long'></part>
+  <part name='deviceSubtypeId' type='xsd:long'></part>
+  <part name='ip4Addresses' type='xsd:string'></part>
+  <part name='ip6Addresses' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getProbeStatusResponse'>
+  <part name='return' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_addExternalHostRecordResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getEntitiesByNameResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_uploadResponsePolicyItems'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='data' type='xsd:base64Binary'></part>
+ </message>
+ <message name='ProteusAPI_getAdditionalIPAddressesResponse'>
+  <part name='return' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDependentRecordsResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_getUserDefinedFieldsResponse'>
+  <part name='return' type='tns:APIUserDefinedFieldArray'></part>
+ </message>
+ <message name='ProteusAPI_addTagGroup'>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_untagEntityResponse'></message>
+ <message name='ProteusAPI_searchByObjectTypesResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_getMACAddressResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_addIP4ReconciliationPolicy'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addAdditionalIPAddresses'>
+  <part name='serverId' type='xsd:long'></part>
+  <part name='ipsToAdd' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addAccessRight'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='userId' type='xsd:long'></part>
+  <part name='value' type='xsd:string'></part>
+  <part name='overrides' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addEnumNumberResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addIP4Network'>
+  <part name='blockId' type='xsd:long'></part>
+  <part name='CIDR' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_startProbe'>
+  <part name='definedProbe' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_loginWithOptionsResponse'></message>
+ <message name='ProteusAPI_getEntityByPrefixResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_getMaxAllowedRangeResponse'>
+  <part name='return' type='ns1:stringArray'></part>
+ </message>
+ <message name='ProteusAPI_loginWithOptions'>
+  <part name='username' type='xsd:string'></part>
+  <part name='password' type='xsd:string'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_quickDeploy'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_isAddressAllocatedResponse'>
+  <part name='return' type='xsd:boolean'></part>
+ </message>
+ <message name='ProteusAPI_addDeviceInstanceResponse'>
+  <part name='return' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addZoneResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addIP4IPGroupBySizeResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getNextAvailableIP4Network'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='size' type='xsd:long'></part>
+  <part name='isLargerAllowed' type='xsd:boolean'></part>
+  <part name='autoCreate' type='xsd:boolean'></part>
+ </message>
+ <message name='ProteusAPI_addTXTRecordResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addView'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addIP6AddressResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addDHCP6RangeResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addDNSDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='value' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getIP4Address'>
+  <part name='containerId' type='xsd:long'></part>
+  <part name='address' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_searchByCategoryResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_assignNextAvailableIP4Address'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='macAddress' type='xsd:string'></part>
+  <part name='hostInfo' type='xsd:string'></part>
+  <part name='action' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addSRVRecordResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addResponsePolicy'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='responsePolicyType' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addUserGroup'>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getUserDefinedFields'>
+  <part name='type' type='xsd:string'></part>
+  <part name='requiredFieldsOnly' type='xsd:boolean'></part>
+ </message>
+ <message name='ProteusAPI_deployServer'>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addZone'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addDHCPServiceDeploymentOptionResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getEntityByCIDRResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_addTFTPFile'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='version' type='xsd:string'></part>
+  <part name='data' type='xsd:base64Binary'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_replaceServer'>
+  <part name='serverId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='defaultInterface' type='xsd:string'></part>
+  <part name='hostName' type='xsd:string'></part>
+  <part name='password' type='xsd:string'></part>
+  <part name='upgrade' type='xsd:boolean'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addVendorOptionDefinitionResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addIP4NetworkTemplateResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getEntityByRange'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='address1' type='xsd:string'></part>
+  <part name='address2' type='xsd:string'></part>
+  <part name='type' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addServer'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='defaultInterfaceAddress' type='xsd:string'></part>
+  <part name='fullHostName' type='xsd:string'></part>
+  <part name='profile' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_mergeSelectedBlocksOrNetworksResponse'></message>
+ <message name='ProteusAPI_addMXRecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='priority' type='xsd:int'></part>
+  <part name='linkedRecordName' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_deployServerConfig'>
+  <part name='serverId' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_uploadResponsePolicyItemsResponse'></message>
+ <message name='ProteusAPI_addACLResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDHCPClientDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addIP6BlockByMACAddress'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='macAddress' type='xsd:string'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_untagEntity'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='tagId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_assignIP6Address'>
+  <part name='containerId' type='xsd:long'></part>
+  <part name='address' type='xsd:string'></part>
+  <part name='action' type='xsd:string'></part>
+  <part name='macAddress' type='xsd:string'></part>
+  <part name='hostInfo' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getEntityByPrefix'>
+  <part name='containerId' type='xsd:long'></part>
+  <part name='prefix' type='xsd:string'></part>
+  <part name='type' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_failoverXHA'>
+  <part name='xHAServerId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getNextAvailableIPRange'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='size' type='xsd:long'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addUserResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_reapplyTemplate'>
+  <part name='templateId' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getAccessRightsForUser'>
+  <part name='userId' type='xsd:long'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_deleteDNSDeploymentRoleResponse'></message>
+ <message name='ProteusAPI_changeStateIP4Address'>
+  <part name='addressId' type='xsd:long'></part>
+  <part name='targetState' type='xsd:string'></part>
+  <part name='macAddress' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_assignIP6AddressResponse'>
+  <part name='return' type='xsd:boolean'></part>
+ </message>
+ <message name='ProteusAPI_assignIP4Address'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='ip4Address' type='xsd:string'></part>
+  <part name='macAddress' type='xsd:string'></part>
+  <part name='hostInfo' type='xsd:string'></part>
+  <part name='action' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addDNSDeploymentRole'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='serverInterfaceId' type='xsd:long'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_deleteWithOptions'>
+  <part name='objectId' type='xsd:long'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addTFTPFileResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCPVendorDeploymentOption'>
+  <part name='option' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_addEnumZone'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='prefix' type='xsd:int'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_assignOrUpdateTemplate'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='templateId' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceArpEntriesResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_getEntitiesByNameUsingOptions'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getIP6Address'>
+  <part name='containerId' type='xsd:long'></part>
+  <part name='address' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_denyMACAddressResponse'></message>
+ <message name='ProteusAPI_moveDeploymentRoles'>
+  <part name='sourceServerId' type='xsd:long'></part>
+  <part name='targetServerInterfaceId' type='xsd:long'></part>
+  <part name='moveDnsRoles' type='xsd:boolean'></part>
+  <part name='moveDhcpRoles' type='xsd:boolean'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addDeviceSubtypeResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addMACAddressResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_isMigrationRunning'>
+  <part name='filename' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addDHCP4Range'>
+  <part name='networkId' type='xsd:long'></part>
+  <part name='start' type='xsd:string'></part>
+  <part name='end' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCP6ServiceDeploymentOption'>
+  <part name='option' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_replaceServerResponse'></message>
+ <message name='ProteusAPI_changeStateIP4AddressResponse'></message>
+ <message name='ProteusAPI_addACL'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceArpEntries'>
+  <part name='policyId' type='xsd:long'></part>
+  <part name='deviceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_removeAdditionalIPAddresses'>
+  <part name='serverId' type='xsd:long'></part>
+  <part name='ipsToRemove' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getIP4NetworksByHint'>
+  <part name='containerId' type='xsd:long'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_deleteDHCPClientDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_linkEntitiesResponse'></message>
+ <message name='ProteusAPI_updateResponse'></message>
+ <message name='ProteusAPI_createXHAPairResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDependentRecords'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_updateWithOptions'>
+  <part name='entity' type='tns:APIEntity'></part>
+  <part name='options' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDNSDeploymentOptionResponse'>
+  <part name='return' type='tns:APIDeploymentOption'></part>
+ </message>
+ <message name='ProteusAPI_associateMACAddressWithPool'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='macAddress' type='xsd:string'></part>
+  <part name='poolId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addResourceRecordResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getParentResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_deleteDNSDeploymentRoleForViewResponse'></message>
+ <message name='ProteusAPI_getZonesByHintResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_addDHCPDeploymentRole'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='serverInterfaceId' type='xsd:long'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addVendorProfileResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addParentBlock'>
+  <part name='blockOrNetworkIds' type='ns1:longArray'></part>
+ </message>
+ <message name='ProteusAPI_deleteDHCPVendorDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='optionId' type='xsd:long'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addIP4ReconciliationPolicyResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addEntity'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='entity' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceMacAddressEntries'>
+  <part name='policyId' type='xsd:long'></part>
+  <part name='deviceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getIP4NetworksByHintResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_importServer'>
+  <part name='serverId' type='xsd:long'></part>
+  <part name='importDns' type='xsd:boolean'></part>
+  <part name='importDhcp' type='xsd:boolean'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDNSDeploymentRoleResponse'>
+  <part name='return' type='tns:APIDeploymentRole'></part>
+ </message>
+ <message name='ProteusAPI_addDHCPClientDeploymentOptionResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getMACAddress'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='macAddress' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_moveIP4Object'>
+  <part name='objectId' type='xsd:long'></part>
+  <part name='address' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getIPRangedByIP'>
+  <part name='containerId' type='xsd:long'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='address' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addHINFORecordResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addHINFORecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='cpu' type='xsd:string'></part>
+  <part name='os' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_breakXHAPair'>
+  <part name='xHAServerId' type='xsd:long'></part>
+  <part name='breakInProteusOnly' type='xsd:boolean'></part>
+ </message>
+ <message name='ProteusAPI_getIPRangedByIPResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_deleteDHCPVendorDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_addIP4BlockByRange'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='start' type='xsd:string'></part>
+  <part name='end' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_deployServerConfigResponse'></message>
+ <message name='ProteusAPI_getDNSDeploymentRoleForViewResponse'>
+  <part name='return' type='tns:APIDeploymentRole'></part>
+ </message>
+ <message name='ProteusAPI_reassignIP6AddressResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_moveIP4ObjectResponse'></message>
+ <message name='ProteusAPI_moveResourceRecord'>
+  <part name='resourceRecordId' type='xsd:long'></part>
+  <part name='destinationZone' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addTagGroupResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getNextAvailableIPRanges'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='size' type='xsd:long'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='count' type='xsd:int'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDevices'>
+  <part name='policyId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getKSKResponse'>
+  <part name='return' type='ns1:stringArray'></part>
+ </message>
+ <message name='ProteusAPI_addVendorOptionDefinition'>
+  <part name='vendorProfileId' type='xsd:long'></part>
+  <part name='optionId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='optionType' type='xsd:string'></part>
+  <part name='description' type='xsd:string'></part>
+  <part name='allowMultiple' type='xsd:boolean'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_updateBulkUdfResponse'>
+  <part name='return' type='xsd:base64Binary'></part>
+ </message>
+ <message name='ProteusAPI_getNextAvailableIP4NetworkResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getNextIP4Address'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addDeviceResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getLinkedEntities'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_getProbeStatus'>
+  <part name='definedProbe' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCPDeploymentRoleResponse'></message>
+ <message name='ProteusAPI_deleteDHCPServiceDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='serverId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDNSDeploymentRoleForView'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='serverInterfaceId' type='xsd:long'></part>
+  <part name='viewId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addEnumZoneResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_updateDHCP6ServiceDeploymentOptionResponse'></message>
+ <message name='ProteusAPI_getMACAddressesInPool'>
+  <part name='macPoolId' type='xsd:long'></part>
+  <part name='start' type='xsd:int'></part>
+  <part name='count' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_addUser'>
+  <part name='username' type='xsd:string'></part>
+  <part name='password' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addZoneTemplateResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceVlans'>
+  <part name='policyId' type='xsd:long'></part>
+  <part name='deviceId' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_shareNetworkResponse'></message>
+ <message name='ProteusAPI_addIP6Address'>
+  <part name='containerId' type='xsd:long'></part>
+  <part name='address' type='xsd:string'></part>
+  <part name='type' type='xsd:string'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceHostsResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_getDiscoveredDeviceInterfacesResponse'>
+  <part name='return' type='tns:APIEntityArray'></part>
+ </message>
+ <message name='ProteusAPI_addResponsePolicyResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_tagEntityResponse'></message>
+ <message name='ProteusAPI_moveDeploymentRolesResponse'></message>
+ <message name='ProteusAPI_deployServerResponse'></message>
+ <message name='ProteusAPI_addIP4IPGroupByRangeResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_deleteDHCPDeploymentRoleResponse'></message>
+ <message name='ProteusAPI_addIP6BlockByPrefix'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='prefix' type='xsd:string'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_migrateFileResponse'></message>
+ <message name='ProteusAPI_addSRVRecord'>
+  <part name='viewId' type='xsd:long'></part>
+  <part name='absoluteName' type='xsd:string'></part>
+  <part name='priority' type='xsd:int'></part>
+  <part name='port' type='xsd:int'></part>
+  <part name='weight' type='xsd:int'></part>
+  <part name='linkedRecordName' type='xsd:string'></part>
+  <part name='ttl' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getEntityByRangeResponse'>
+  <part name='return' type='tns:APIEntity'></part>
+ </message>
+ <message name='ProteusAPI_mergeBlocksWithParent'>
+  <part name='blockIds' type='ns1:longArray'></part>
+ </message>
+ <message name='ProteusAPI_denyMACAddress'>
+  <part name='configurationId' type='xsd:long'></part>
+  <part name='macAddress' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addTFTPDeploymentRoleResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_addDHCP6ServiceDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='value' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_addDHCP4RangeResponse'>
+  <part name='return' type='xsd:long'></part>
+ </message>
+ <message name='ProteusAPI_deleteResponse'></message>
+ <message name='ProteusAPI_addDHCPClientDeploymentOption'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='name' type='xsd:string'></part>
+  <part name='value' type='xsd:string'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getAdditionalIPAddresses'>
+  <part name='adonisID' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_logoutResponse'></message>
+ <message name='ProteusAPI_addStartOfAuthority'>
+  <part name='parentId' type='xsd:long'></part>
+  <part name='email' type='xsd:string'></part>
+  <part name='refresh' type='xsd:long'></part>
+  <part name='retry' type='xsd:long'></part>
+  <part name='expire' type='xsd:long'></part>
+  <part name='minimum' type='xsd:long'></part>
+  <part name='properties' type='xsd:string'></part>
+ </message>
+ <message name='ProteusAPI_getServerDeploymentStatusResponse'>
+  <part name='return' type='xsd:int'></part>
+ </message>
+ <message name='ProteusAPI_addAdditionalIPAddressesResponse'></message>
+ <message name='ProteusAPI_deleteAccessRight'>
+  <part name='entityId' type='xsd:long'></part>
+  <part name='userId' type='xsd:long'></part>
+ </message>
+ <portType name='ProteusAPI'>
+  <operation name='addACL' parameterOrder='configurationId name properties'>
+   <input message='tns:ProteusAPI_addACL'></input>
+   <output message='tns:ProteusAPI_addACLResponse'></output>
+  </operation>
+  <operation name='addAccessRight' parameterOrder='entityId userId value overrides properties'>
+   <input message='tns:ProteusAPI_addAccessRight'></input>
+   <output message='tns:ProteusAPI_addAccessRightResponse'></output>
+  </operation>
+  <operation name='addAdditionalIPAddresses' parameterOrder='serverId ipsToAdd properties'>
+   <input message='tns:ProteusAPI_addAdditionalIPAddresses'></input>
+   <output message='tns:ProteusAPI_addAdditionalIPAddressesResponse'></output>
+  </operation>
+  <operation name='addAliasRecord' parameterOrder='viewId absoluteName linkedRecordName ttl properties'>
+   <input message='tns:ProteusAPI_addAliasRecord'></input>
+   <output message='tns:ProteusAPI_addAliasRecordResponse'></output>
+  </operation>
+  <operation name='addBulkHostRecord' parameterOrder='viewId absoluteName ttl networkId startAddress numberOfAddresses properties'>
+   <input message='tns:ProteusAPI_addBulkHostRecord'></input>
+   <output message='tns:ProteusAPI_addBulkHostRecordResponse'></output>
+  </operation>
+  <operation name='addCustomOptionDefinition' parameterOrder='configurationId name optionId optionType allowMultiple properties'>
+   <input message='tns:ProteusAPI_addCustomOptionDefinition'></input>
+   <output message='tns:ProteusAPI_addCustomOptionDefinitionResponse'></output>
+  </operation>
+  <operation name='addDHCP4Range' parameterOrder='networkId start end properties'>
+   <input message='tns:ProteusAPI_addDHCP4Range'></input>
+   <output message='tns:ProteusAPI_addDHCP4RangeResponse'></output>
+  </operation>
+  <operation name='addDHCP4RangeBySize' parameterOrder='networkId offset size properties'>
+   <input message='tns:ProteusAPI_addDHCP4RangeBySize'></input>
+   <output message='tns:ProteusAPI_addDHCP4RangeBySizeResponse'></output>
+  </operation>
+  <operation name='addDHCP6ClientDeploymentOption' parameterOrder='entityId name value properties'>
+   <input message='tns:ProteusAPI_addDHCP6ClientDeploymentOption'></input>
+   <output message='tns:ProteusAPI_addDHCP6ClientDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='addDHCP6Range' parameterOrder='networkId start end properties'>
+   <input message='tns:ProteusAPI_addDHCP6Range'></input>
+   <output message='tns:ProteusAPI_addDHCP6RangeResponse'></output>
+  </operation>
+  <operation name='addDHCP6ServiceDeploymentOption' parameterOrder='entityId name value properties'>
+   <input message='tns:ProteusAPI_addDHCP6ServiceDeploymentOption'></input>
+   <output message='tns:ProteusAPI_addDHCP6ServiceDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='addDHCPClientDeploymentOption' parameterOrder='entityId name value properties'>
+   <input message='tns:ProteusAPI_addDHCPClientDeploymentOption'></input>
+   <output message='tns:ProteusAPI_addDHCPClientDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='addDHCPDeploymentRole' parameterOrder='entityId serverInterfaceId type properties'>
+   <input message='tns:ProteusAPI_addDHCPDeploymentRole'></input>
+   <output message='tns:ProteusAPI_addDHCPDeploymentRoleResponse'></output>
+  </operation>
+  <operation name='addDHCPMatchClass' parameterOrder='configurationId name matchCriteria properties'>
+   <input message='tns:ProteusAPI_addDHCPMatchClass'></input>
+   <output message='tns:ProteusAPI_addDHCPMatchClassResponse'></output>
+  </operation>
+  <operation name='addDHCPServiceDeploymentOption' parameterOrder='entityId name value properties'>
+   <input message='tns:ProteusAPI_addDHCPServiceDeploymentOption'></input>
+   <output message='tns:ProteusAPI_addDHCPServiceDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='addDHCPSubClass' parameterOrder='matchClassId matchValue properties'>
+   <input message='tns:ProteusAPI_addDHCPSubClass'></input>
+   <output message='tns:ProteusAPI_addDHCPSubClassResponse'></output>
+  </operation>
+  <operation name='addDHCPVendorDeploymentOption' parameterOrder='parentId optionId value properties'>
+   <input message='tns:ProteusAPI_addDHCPVendorDeploymentOption'></input>
+   <output message='tns:ProteusAPI_addDHCPVendorDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='addDNSDeploymentOption' parameterOrder='entityId name value properties'>
+   <input message='tns:ProteusAPI_addDNSDeploymentOption'></input>
+   <output message='tns:ProteusAPI_addDNSDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='addDNSDeploymentRole' parameterOrder='entityId serverInterfaceId type properties'>
+   <input message='tns:ProteusAPI_addDNSDeploymentRole'></input>
+   <output message='tns:ProteusAPI_addDNSDeploymentRoleResponse'></output>
+  </operation>
+  <operation name='addDevice' parameterOrder='configurationId name deviceTypeId deviceSubtypeId ip4Addresses ip6Addresses properties'>
+   <input message='tns:ProteusAPI_addDevice'></input>
+   <output message='tns:ProteusAPI_addDeviceResponse'></output>
+  </operation>
+  <operation name='addDeviceInstance' parameterOrder='configName deviceName ipAddressMode ipEntity viewName zoneName recordName macAddressMode macEntity options'>
+   <input message='tns:ProteusAPI_addDeviceInstance'></input>
+   <output message='tns:ProteusAPI_addDeviceInstanceResponse'></output>
+  </operation>
+  <operation name='addDeviceSubtype' parameterOrder='parentId name properties'>
+   <input message='tns:ProteusAPI_addDeviceSubtype'></input>
+   <output message='tns:ProteusAPI_addDeviceSubtypeResponse'></output>
+  </operation>
+  <operation name='addDeviceType' parameterOrder='name properties'>
+   <input message='tns:ProteusAPI_addDeviceType'></input>
+   <output message='tns:ProteusAPI_addDeviceTypeResponse'></output>
+  </operation>
+  <operation name='addEntity' parameterOrder='parentId entity'>
+   <input message='tns:ProteusAPI_addEntity'></input>
+   <output message='tns:ProteusAPI_addEntityResponse'></output>
+  </operation>
+  <operation name='addEnumNumber' parameterOrder='enumZoneId number properties'>
+   <input message='tns:ProteusAPI_addEnumNumber'></input>
+   <output message='tns:ProteusAPI_addEnumNumberResponse'></output>
+  </operation>
+  <operation name='addEnumZone' parameterOrder='parentId prefix properties'>
+   <input message='tns:ProteusAPI_addEnumZone'></input>
+   <output message='tns:ProteusAPI_addEnumZoneResponse'></output>
+  </operation>
+  <operation name='addExternalHostRecord' parameterOrder='viewId name properties'>
+   <input message='tns:ProteusAPI_addExternalHostRecord'></input>
+   <output message='tns:ProteusAPI_addExternalHostRecordResponse'></output>
+  </operation>
+  <operation name='addGenericRecord' parameterOrder='viewId absoluteName type rdata ttl properties'>
+   <input message='tns:ProteusAPI_addGenericRecord'></input>
+   <output message='tns:ProteusAPI_addGenericRecordResponse'></output>
+  </operation>
+  <operation name='addHINFORecord' parameterOrder='viewId absoluteName cpu os ttl properties'>
+   <input message='tns:ProteusAPI_addHINFORecord'></input>
+   <output message='tns:ProteusAPI_addHINFORecordResponse'></output>
+  </operation>
+  <operation name='addHostRecord' parameterOrder='viewId absoluteName addresses ttl properties'>
+   <input message='tns:ProteusAPI_addHostRecord'></input>
+   <output message='tns:ProteusAPI_addHostRecordResponse'></output>
+  </operation>
+  <operation name='addIP4BlockByCIDR' parameterOrder='parentId CIDR properties'>
+   <input message='tns:ProteusAPI_addIP4BlockByCIDR'></input>
+   <output message='tns:ProteusAPI_addIP4BlockByCIDRResponse'></output>
+  </operation>
+  <operation name='addIP4BlockByRange' parameterOrder='parentId start end properties'>
+   <input message='tns:ProteusAPI_addIP4BlockByRange'></input>
+   <output message='tns:ProteusAPI_addIP4BlockByRangeResponse'></output>
+  </operation>
+  <operation name='addIP4IPGroupByRange' parameterOrder='parentId name start end properties'>
+   <input message='tns:ProteusAPI_addIP4IPGroupByRange'></input>
+   <output message='tns:ProteusAPI_addIP4IPGroupByRangeResponse'></output>
+  </operation>
+  <operation name='addIP4IPGroupBySize' parameterOrder='parentId name size positionRangeBy positionValue properties'>
+   <input message='tns:ProteusAPI_addIP4IPGroupBySize'></input>
+   <output message='tns:ProteusAPI_addIP4IPGroupBySizeResponse'></output>
+  </operation>
+  <operation name='addIP4Network' parameterOrder='blockId CIDR properties'>
+   <input message='tns:ProteusAPI_addIP4Network'></input>
+   <output message='tns:ProteusAPI_addIP4NetworkResponse'></output>
+  </operation>
+  <operation name='addIP4NetworkTemplate' parameterOrder='configurationId name properties'>
+   <input message='tns:ProteusAPI_addIP4NetworkTemplate'></input>
+   <output message='tns:ProteusAPI_addIP4NetworkTemplateResponse'></output>
+  </operation>
+  <operation name='addIP4ReconciliationPolicy' parameterOrder='parentId name properties'>
+   <input message='tns:ProteusAPI_addIP4ReconciliationPolicy'></input>
+   <output message='tns:ProteusAPI_addIP4ReconciliationPolicyResponse'></output>
+  </operation>
+  <operation name='addIP6Address' parameterOrder='containerId address type name properties'>
+   <input message='tns:ProteusAPI_addIP6Address'></input>
+   <output message='tns:ProteusAPI_addIP6AddressResponse'></output>
+  </operation>
+  <operation name='addIP6BlockByMACAddress' parameterOrder='parentId macAddress name properties'>
+   <input message='tns:ProteusAPI_addIP6BlockByMACAddress'></input>
+   <output message='tns:ProteusAPI_addIP6BlockByMACAddressResponse'></output>
+  </operation>
+  <operation name='addIP6BlockByPrefix' parameterOrder='parentId prefix name properties'>
+   <input message='tns:ProteusAPI_addIP6BlockByPrefix'></input>
+   <output message='tns:ProteusAPI_addIP6BlockByPrefixResponse'></output>
+  </operation>
+  <operation name='addIP6NetworkByPrefix' parameterOrder='parentId prefix name properties'>
+   <input message='tns:ProteusAPI_addIP6NetworkByPrefix'></input>
+   <output message='tns:ProteusAPI_addIP6NetworkByPrefixResponse'></output>
+  </operation>
+  <operation name='addMACAddress' parameterOrder='configurationId macAddress properties'>
+   <input message='tns:ProteusAPI_addMACAddress'></input>
+   <output message='tns:ProteusAPI_addMACAddressResponse'></output>
+  </operation>
+  <operation name='addMXRecord' parameterOrder='viewId absoluteName priority linkedRecordName ttl properties'>
+   <input message='tns:ProteusAPI_addMXRecord'></input>
+   <output message='tns:ProteusAPI_addMXRecordResponse'></output>
+  </operation>
+  <operation name='addNAPTRRecord' parameterOrder='viewId absoluteName order preference service regexp replacement flags ttl properties'>
+   <input message='tns:ProteusAPI_addNAPTRRecord'></input>
+   <output message='tns:ProteusAPI_addNAPTRRecordResponse'></output>
+  </operation>
+  <operation name='addParentBlock' parameterOrder='blockOrNetworkIds'>
+   <input message='tns:ProteusAPI_addParentBlock'></input>
+   <output message='tns:ProteusAPI_addParentBlockResponse'></output>
+  </operation>
+  <operation name='addParentBlockWithProperties' parameterOrder='blockOrNetworkIds properties'>
+   <input message='tns:ProteusAPI_addParentBlockWithProperties'></input>
+   <output message='tns:ProteusAPI_addParentBlockWithPropertiesResponse'></output>
+  </operation>
+  <operation name='addResourceRecord' parameterOrder='viewId absoluteName type rdata ttl properties'>
+   <input message='tns:ProteusAPI_addResourceRecord'></input>
+   <output message='tns:ProteusAPI_addResourceRecordResponse'></output>
+  </operation>
+  <operation name='addResponsePolicy' parameterOrder='configurationId name responsePolicyType ttl properties'>
+   <input message='tns:ProteusAPI_addResponsePolicy'></input>
+   <output message='tns:ProteusAPI_addResponsePolicyResponse'></output>
+  </operation>
+  <operation name='addSRVRecord' parameterOrder='viewId absoluteName priority port weight linkedRecordName ttl properties'>
+   <input message='tns:ProteusAPI_addSRVRecord'></input>
+   <output message='tns:ProteusAPI_addSRVRecordResponse'></output>
+  </operation>
+  <operation name='addServer' parameterOrder='configurationId name defaultInterfaceAddress fullHostName profile properties'>
+   <input message='tns:ProteusAPI_addServer'></input>
+   <output message='tns:ProteusAPI_addServerResponse'></output>
+  </operation>
+  <operation name='addStartOfAuthority' parameterOrder='parentId email refresh retry expire minimum properties'>
+   <input message='tns:ProteusAPI_addStartOfAuthority'></input>
+   <output message='tns:ProteusAPI_addStartOfAuthorityResponse'></output>
+  </operation>
+  <operation name='addTFTPDeploymentRole' parameterOrder='entityId serverId properties'>
+   <input message='tns:ProteusAPI_addTFTPDeploymentRole'></input>
+   <output message='tns:ProteusAPI_addTFTPDeploymentRoleResponse'></output>
+  </operation>
+  <operation name='addTFTPFile' parameterOrder='parentId name version data properties'>
+   <input message='tns:ProteusAPI_addTFTPFile'></input>
+   <output message='tns:ProteusAPI_addTFTPFileResponse'></output>
+  </operation>
+  <operation name='addTFTPFolder' parameterOrder='parentId name properties'>
+   <input message='tns:ProteusAPI_addTFTPFolder'></input>
+   <output message='tns:ProteusAPI_addTFTPFolderResponse'></output>
+  </operation>
+  <operation name='addTFTPGroup' parameterOrder='configurationId name properties'>
+   <input message='tns:ProteusAPI_addTFTPGroup'></input>
+   <output message='tns:ProteusAPI_addTFTPGroupResponse'></output>
+  </operation>
+  <operation name='addTXTRecord' parameterOrder='viewId absoluteName txt ttl properties'>
+   <input message='tns:ProteusAPI_addTXTRecord'></input>
+   <output message='tns:ProteusAPI_addTXTRecordResponse'></output>
+  </operation>
+  <operation name='addTag' parameterOrder='parentId name properties'>
+   <input message='tns:ProteusAPI_addTag'></input>
+   <output message='tns:ProteusAPI_addTagResponse'></output>
+  </operation>
+  <operation name='addTagGroup' parameterOrder='name properties'>
+   <input message='tns:ProteusAPI_addTagGroup'></input>
+   <output message='tns:ProteusAPI_addTagGroupResponse'></output>
+  </operation>
+  <operation name='addUser' parameterOrder='username password properties'>
+   <input message='tns:ProteusAPI_addUser'></input>
+   <output message='tns:ProteusAPI_addUserResponse'></output>
+  </operation>
+  <operation name='addUserGroup' parameterOrder='name properties'>
+   <input message='tns:ProteusAPI_addUserGroup'></input>
+   <output message='tns:ProteusAPI_addUserGroupResponse'></output>
+  </operation>
+  <operation name='addVendorOptionDefinition' parameterOrder='vendorProfileId optionId name optionType description allowMultiple properties'>
+   <input message='tns:ProteusAPI_addVendorOptionDefinition'></input>
+   <output message='tns:ProteusAPI_addVendorOptionDefinitionResponse'></output>
+  </operation>
+  <operation name='addVendorProfile' parameterOrder='identifier name description properties'>
+   <input message='tns:ProteusAPI_addVendorProfile'></input>
+   <output message='tns:ProteusAPI_addVendorProfileResponse'></output>
+  </operation>
+  <operation name='addView' parameterOrder='configurationId name properties'>
+   <input message='tns:ProteusAPI_addView'></input>
+   <output message='tns:ProteusAPI_addViewResponse'></output>
+  </operation>
+  <operation name='addZone' parameterOrder='parentId absoluteName properties'>
+   <input message='tns:ProteusAPI_addZone'></input>
+   <output message='tns:ProteusAPI_addZoneResponse'></output>
+  </operation>
+  <operation name='addZoneTemplate' parameterOrder='parentId name properties'>
+   <input message='tns:ProteusAPI_addZoneTemplate'></input>
+   <output message='tns:ProteusAPI_addZoneTemplateResponse'></output>
+  </operation>
+  <operation name='assignIP4Address' parameterOrder='configurationId ip4Address macAddress hostInfo action properties'>
+   <input message='tns:ProteusAPI_assignIP4Address'></input>
+   <output message='tns:ProteusAPI_assignIP4AddressResponse'></output>
+  </operation>
+  <operation name='assignIP6Address' parameterOrder='containerId address action macAddress hostInfo properties'>
+   <input message='tns:ProteusAPI_assignIP6Address'></input>
+   <output message='tns:ProteusAPI_assignIP6AddressResponse'></output>
+  </operation>
+  <operation name='assignNextAvailableIP4Address' parameterOrder='configurationId parentId macAddress hostInfo action properties'>
+   <input message='tns:ProteusAPI_assignNextAvailableIP4Address'></input>
+   <output message='tns:ProteusAPI_assignNextAvailableIP4AddressResponse'></output>
+  </operation>
+  <operation name='assignOrUpdateTemplate' parameterOrder='entityId templateId properties'>
+   <input message='tns:ProteusAPI_assignOrUpdateTemplate'></input>
+   <output message='tns:ProteusAPI_assignOrUpdateTemplateResponse'></output>
+  </operation>
+  <operation name='associateMACAddressWithPool' parameterOrder='configurationId macAddress poolId'>
+   <input message='tns:ProteusAPI_associateMACAddressWithPool'></input>
+   <output message='tns:ProteusAPI_associateMACAddressWithPoolResponse'></output>
+  </operation>
+  <operation name='breakXHAPair' parameterOrder='xHAServerId breakInProteusOnly'>
+   <input message='tns:ProteusAPI_breakXHAPair'></input>
+   <output message='tns:ProteusAPI_breakXHAPairResponse'></output>
+  </operation>
+  <operation name='changeStateIP4Address' parameterOrder='addressId targetState macAddress'>
+   <input message='tns:ProteusAPI_changeStateIP4Address'></input>
+   <output message='tns:ProteusAPI_changeStateIP4AddressResponse'></output>
+  </operation>
+  <operation name='clearIP6Address' parameterOrder='addressId'>
+   <input message='tns:ProteusAPI_clearIP6Address'></input>
+   <output message='tns:ProteusAPI_clearIP6AddressResponse'></output>
+  </operation>
+  <operation name='configureReplication' parameterOrder='standbyServer compressReplication replicationQueueThreshold replicationBreakThreshold properties'>
+   <input message='tns:ProteusAPI_configureReplication'></input>
+   <output message='tns:ProteusAPI_configureReplicationResponse'></output>
+  </operation>
+  <operation name='createXHAPair' parameterOrder='configurationId activeServerId passiveServerId activeServerNewIPv4Address properties'>
+   <input message='tns:ProteusAPI_createXHAPair'></input>
+   <output message='tns:ProteusAPI_createXHAPairResponse'></output>
+  </operation>
+  <operation name='delete' parameterOrder='objectId'>
+   <input message='tns:ProteusAPI_delete'></input>
+   <output message='tns:ProteusAPI_deleteResponse'></output>
+  </operation>
+  <operation name='deleteAccessRight' parameterOrder='entityId userId'>
+   <input message='tns:ProteusAPI_deleteAccessRight'></input>
+   <output message='tns:ProteusAPI_deleteAccessRightResponse'></output>
+  </operation>
+  <operation name='deleteDHCP6ClientDeploymentOption' parameterOrder='entityId name serverId'>
+   <input message='tns:ProteusAPI_deleteDHCP6ClientDeploymentOption'></input>
+   <output message='tns:ProteusAPI_deleteDHCP6ClientDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='deleteDHCP6ServiceDeploymentOption' parameterOrder='entityId name serverId'>
+   <input message='tns:ProteusAPI_deleteDHCP6ServiceDeploymentOption'></input>
+   <output message='tns:ProteusAPI_deleteDHCP6ServiceDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='deleteDHCPClientDeploymentOption' parameterOrder='entityId name serverId'>
+   <input message='tns:ProteusAPI_deleteDHCPClientDeploymentOption'></input>
+   <output message='tns:ProteusAPI_deleteDHCPClientDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='deleteDHCPDeploymentRole' parameterOrder='entityId serverInterfaceId'>
+   <input message='tns:ProteusAPI_deleteDHCPDeploymentRole'></input>
+   <output message='tns:ProteusAPI_deleteDHCPDeploymentRoleResponse'></output>
+  </operation>
+  <operation name='deleteDHCPServiceDeploymentOption' parameterOrder='entityId name serverId'>
+   <input message='tns:ProteusAPI_deleteDHCPServiceDeploymentOption'></input>
+   <output message='tns:ProteusAPI_deleteDHCPServiceDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='deleteDHCPVendorDeploymentOption' parameterOrder='entityId optionId serverId'>
+   <input message='tns:ProteusAPI_deleteDHCPVendorDeploymentOption'></input>
+   <output message='tns:ProteusAPI_deleteDHCPVendorDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='deleteDNSDeploymentOption' parameterOrder='entityId name serverId'>
+   <input message='tns:ProteusAPI_deleteDNSDeploymentOption'></input>
+   <output message='tns:ProteusAPI_deleteDNSDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='deleteDNSDeploymentRole' parameterOrder='entityId serverInterfaceId'>
+   <input message='tns:ProteusAPI_deleteDNSDeploymentRole'></input>
+   <output message='tns:ProteusAPI_deleteDNSDeploymentRoleResponse'></output>
+  </operation>
+  <operation name='deleteDNSDeploymentRoleForView' parameterOrder='entityId serverInterfaceId viewId'>
+   <input message='tns:ProteusAPI_deleteDNSDeploymentRoleForView'></input>
+   <output message='tns:ProteusAPI_deleteDNSDeploymentRoleForViewResponse'></output>
+  </operation>
+  <operation name='deleteDeviceInstance' parameterOrder='configName identifier options'>
+   <input message='tns:ProteusAPI_deleteDeviceInstance'></input>
+   <output message='tns:ProteusAPI_deleteDeviceInstanceResponse'></output>
+  </operation>
+  <operation name='deleteWithOptions' parameterOrder='objectId options'>
+   <input message='tns:ProteusAPI_deleteWithOptions'></input>
+   <output message='tns:ProteusAPI_deleteWithOptionsResponse'></output>
+  </operation>
+  <operation name='denyMACAddress' parameterOrder='configurationId macAddress'>
+   <input message='tns:ProteusAPI_denyMACAddress'></input>
+   <output message='tns:ProteusAPI_denyMACAddressResponse'></output>
+  </operation>
+  <operation name='deployServer' parameterOrder='serverId'>
+   <input message='tns:ProteusAPI_deployServer'></input>
+   <output message='tns:ProteusAPI_deployServerResponse'></output>
+  </operation>
+  <operation name='deployServerConfig' parameterOrder='serverId properties'>
+   <input message='tns:ProteusAPI_deployServerConfig'></input>
+   <output message='tns:ProteusAPI_deployServerConfigResponse'></output>
+  </operation>
+  <operation name='deployServerServices' parameterOrder='serverId services'>
+   <input message='tns:ProteusAPI_deployServerServices'></input>
+   <output message='tns:ProteusAPI_deployServerServicesResponse'></output>
+  </operation>
+  <operation name='editXHAPair' parameterOrder='xHAServerId name properties'>
+   <input message='tns:ProteusAPI_editXHAPair'></input>
+   <output message='tns:ProteusAPI_editXHAPairResponse'></output>
+  </operation>
+  <operation name='failoverXHA' parameterOrder='xHAServerId'>
+   <input message='tns:ProteusAPI_failoverXHA'></input>
+   <output message='tns:ProteusAPI_failoverXHAResponse'></output>
+  </operation>
+  <operation name='getAccessRight' parameterOrder='entityId userId'>
+   <input message='tns:ProteusAPI_getAccessRight'></input>
+   <output message='tns:ProteusAPI_getAccessRightResponse'></output>
+  </operation>
+  <operation name='getAccessRightsForEntity' parameterOrder='entityId start count'>
+   <input message='tns:ProteusAPI_getAccessRightsForEntity'></input>
+   <output message='tns:ProteusAPI_getAccessRightsForEntityResponse'></output>
+  </operation>
+  <operation name='getAccessRightsForUser' parameterOrder='userId start count'>
+   <input message='tns:ProteusAPI_getAccessRightsForUser'></input>
+   <output message='tns:ProteusAPI_getAccessRightsForUserResponse'></output>
+  </operation>
+  <operation name='getAdditionalIPAddresses' parameterOrder='adonisID properties'>
+   <input message='tns:ProteusAPI_getAdditionalIPAddresses'></input>
+   <output message='tns:ProteusAPI_getAdditionalIPAddressesResponse'></output>
+  </operation>
+  <operation name='getAliasesByHint' parameterOrder='start count options'>
+   <input message='tns:ProteusAPI_getAliasesByHint'></input>
+   <output message='tns:ProteusAPI_getAliasesByHintResponse'></output>
+  </operation>
+  <operation name='getDHCP6ClientDeploymentOption' parameterOrder='entityId name serverId'>
+   <input message='tns:ProteusAPI_getDHCP6ClientDeploymentOption'></input>
+   <output message='tns:ProteusAPI_getDHCP6ClientDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='getDHCP6ServiceDeploymentOption' parameterOrder='entityId name serverId'>
+   <input message='tns:ProteusAPI_getDHCP6ServiceDeploymentOption'></input>
+   <output message='tns:ProteusAPI_getDHCP6ServiceDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='getDHCPClientDeploymentOption' parameterOrder='entityId name serverId'>
+   <input message='tns:ProteusAPI_getDHCPClientDeploymentOption'></input>
+   <output message='tns:ProteusAPI_getDHCPClientDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='getDHCPDeploymentRole' parameterOrder='entityId serverInterfaceId'>
+   <input message='tns:ProteusAPI_getDHCPDeploymentRole'></input>
+   <output message='tns:ProteusAPI_getDHCPDeploymentRoleResponse'></output>
+  </operation>
+  <operation name='getDHCPServiceDeploymentOption' parameterOrder='entityId name serverId'>
+   <input message='tns:ProteusAPI_getDHCPServiceDeploymentOption'></input>
+   <output message='tns:ProteusAPI_getDHCPServiceDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='getDHCPVendorDeploymentOption' parameterOrder='entityId optionId serverId'>
+   <input message='tns:ProteusAPI_getDHCPVendorDeploymentOption'></input>
+   <output message='tns:ProteusAPI_getDHCPVendorDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='getDNSDeploymentOption' parameterOrder='entityId name serverId'>
+   <input message='tns:ProteusAPI_getDNSDeploymentOption'></input>
+   <output message='tns:ProteusAPI_getDNSDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='getDNSDeploymentRole' parameterOrder='entityId serverInterfaceId'>
+   <input message='tns:ProteusAPI_getDNSDeploymentRole'></input>
+   <output message='tns:ProteusAPI_getDNSDeploymentRoleResponse'></output>
+  </operation>
+  <operation name='getDNSDeploymentRoleForView' parameterOrder='entityId serverInterfaceId viewId'>
+   <input message='tns:ProteusAPI_getDNSDeploymentRoleForView'></input>
+   <output message='tns:ProteusAPI_getDNSDeploymentRoleForViewResponse'></output>
+  </operation>
+  <operation name='getDependentRecords' parameterOrder='entityId start count'>
+   <input message='tns:ProteusAPI_getDependentRecords'></input>
+   <output message='tns:ProteusAPI_getDependentRecordsResponse'></output>
+  </operation>
+  <operation name='getDeploymentOptions' parameterOrder='entityId optionTypes serverId'>
+   <input message='tns:ProteusAPI_getDeploymentOptions'></input>
+   <output message='tns:ProteusAPI_getDeploymentOptionsResponse'></output>
+  </operation>
+  <operation name='getDeploymentRoles' parameterOrder='entityId'>
+   <input message='tns:ProteusAPI_getDeploymentRoles'></input>
+   <output message='tns:ProteusAPI_getDeploymentRolesResponse'></output>
+  </operation>
+  <operation name='getDiscoveredDevice' parameterOrder='policyId deviceId'>
+   <input message='tns:ProteusAPI_getDiscoveredDevice'></input>
+   <output message='tns:ProteusAPI_getDiscoveredDeviceResponse'></output>
+  </operation>
+  <operation name='getDiscoveredDeviceArpEntries' parameterOrder='policyId deviceId'>
+   <input message='tns:ProteusAPI_getDiscoveredDeviceArpEntries'></input>
+   <output message='tns:ProteusAPI_getDiscoveredDeviceArpEntriesResponse'></output>
+  </operation>
+  <operation name='getDiscoveredDeviceHosts' parameterOrder='policyId deviceId'>
+   <input message='tns:ProteusAPI_getDiscoveredDeviceHosts'></input>
+   <output message='tns:ProteusAPI_getDiscoveredDeviceHostsResponse'></output>
+  </operation>
+  <operation name='getDiscoveredDeviceInterfaces' parameterOrder='policyId deviceId'>
+   <input message='tns:ProteusAPI_getDiscoveredDeviceInterfaces'></input>
+   <output message='tns:ProteusAPI_getDiscoveredDeviceInterfacesResponse'></output>
+  </operation>
+  <operation name='getDiscoveredDeviceMacAddressEntries' parameterOrder='policyId deviceId'>
+   <input message='tns:ProteusAPI_getDiscoveredDeviceMacAddressEntries'></input>
+   <output message='tns:ProteusAPI_getDiscoveredDeviceMacAddressEntriesResponse'></output>
+  </operation>
+  <operation name='getDiscoveredDeviceNetworks' parameterOrder='policyId deviceId'>
+   <input message='tns:ProteusAPI_getDiscoveredDeviceNetworks'></input>
+   <output message='tns:ProteusAPI_getDiscoveredDeviceNetworksResponse'></output>
+  </operation>
+  <operation name='getDiscoveredDeviceVlans' parameterOrder='policyId deviceId'>
+   <input message='tns:ProteusAPI_getDiscoveredDeviceVlans'></input>
+   <output message='tns:ProteusAPI_getDiscoveredDeviceVlansResponse'></output>
+  </operation>
+  <operation name='getDiscoveredDevices' parameterOrder='policyId'>
+   <input message='tns:ProteusAPI_getDiscoveredDevices'></input>
+   <output message='tns:ProteusAPI_getDiscoveredDevicesResponse'></output>
+  </operation>
+  <operation name='getEntities' parameterOrder='parentId type start count'>
+   <input message='tns:ProteusAPI_getEntities'></input>
+   <output message='tns:ProteusAPI_getEntitiesResponse'></output>
+  </operation>
+  <operation name='getEntitiesByName' parameterOrder='parentId name type start count'>
+   <input message='tns:ProteusAPI_getEntitiesByName'></input>
+   <output message='tns:ProteusAPI_getEntitiesByNameResponse'></output>
+  </operation>
+  <operation name='getEntitiesByNameUsingOptions' parameterOrder='parentId name type start count options'>
+   <input message='tns:ProteusAPI_getEntitiesByNameUsingOptions'></input>
+   <output message='tns:ProteusAPI_getEntitiesByNameUsingOptionsResponse'></output>
+  </operation>
+  <operation name='getEntityByCIDR' parameterOrder='parentId cidr type'>
+   <input message='tns:ProteusAPI_getEntityByCIDR'></input>
+   <output message='tns:ProteusAPI_getEntityByCIDRResponse'></output>
+  </operation>
+  <operation name='getEntityById' parameterOrder='id'>
+   <input message='tns:ProteusAPI_getEntityById'></input>
+   <output message='tns:ProteusAPI_getEntityByIdResponse'></output>
+  </operation>
+  <operation name='getEntityByName' parameterOrder='parentId name type'>
+   <input message='tns:ProteusAPI_getEntityByName'></input>
+   <output message='tns:ProteusAPI_getEntityByNameResponse'></output>
+  </operation>
+  <operation name='getEntityByPrefix' parameterOrder='containerId prefix type'>
+   <input message='tns:ProteusAPI_getEntityByPrefix'></input>
+   <output message='tns:ProteusAPI_getEntityByPrefixResponse'></output>
+  </operation>
+  <operation name='getEntityByRange' parameterOrder='parentId address1 address2 type'>
+   <input message='tns:ProteusAPI_getEntityByRange'></input>
+   <output message='tns:ProteusAPI_getEntityByRangeResponse'></output>
+  </operation>
+  <operation name='getHostRecordsByHint' parameterOrder='start count options'>
+   <input message='tns:ProteusAPI_getHostRecordsByHint'></input>
+   <output message='tns:ProteusAPI_getHostRecordsByHintResponse'></output>
+  </operation>
+  <operation name='getIP4Address' parameterOrder='containerId address'>
+   <input message='tns:ProteusAPI_getIP4Address'></input>
+   <output message='tns:ProteusAPI_getIP4AddressResponse'></output>
+  </operation>
+  <operation name='getIP4NetworksByHint' parameterOrder='containerId start count options'>
+   <input message='tns:ProteusAPI_getIP4NetworksByHint'></input>
+   <output message='tns:ProteusAPI_getIP4NetworksByHintResponse'></output>
+  </operation>
+  <operation name='getIP6Address' parameterOrder='containerId address'>
+   <input message='tns:ProteusAPI_getIP6Address'></input>
+   <output message='tns:ProteusAPI_getIP6AddressResponse'></output>
+  </operation>
+  <operation name='getIPRangedByIP' parameterOrder='containerId type address'>
+   <input message='tns:ProteusAPI_getIPRangedByIP'></input>
+   <output message='tns:ProteusAPI_getIPRangedByIPResponse'></output>
+  </operation>
+  <operation name='getKSK' parameterOrder='entityId format'>
+   <input message='tns:ProteusAPI_getKSK'></input>
+   <output message='tns:ProteusAPI_getKSKResponse'></output>
+  </operation>
+  <operation name='getLinkedEntities' parameterOrder='entityId type start count'>
+   <input message='tns:ProteusAPI_getLinkedEntities'></input>
+   <output message='tns:ProteusAPI_getLinkedEntitiesResponse'></output>
+  </operation>
+  <operation name='getMACAddress' parameterOrder='configurationId macAddress'>
+   <input message='tns:ProteusAPI_getMACAddress'></input>
+   <output message='tns:ProteusAPI_getMACAddressResponse'></output>
+  </operation>
+  <operation name='getMACAddressesInPool' parameterOrder='macPoolId start count'>
+   <input message='tns:ProteusAPI_getMACAddressesInPool'></input>
+   <output message='tns:ProteusAPI_getMACAddressesInPoolResponse'></output>
+  </operation>
+  <operation name='getMaxAllowedRange' parameterOrder='rangeId'>
+   <input message='tns:ProteusAPI_getMaxAllowedRange'></input>
+   <output message='tns:ProteusAPI_getMaxAllowedRangeResponse'></output>
+  </operation>
+  <operation name='getNetworkLinkedProperties' parameterOrder='networkId'>
+   <input message='tns:ProteusAPI_getNetworkLinkedProperties'></input>
+   <output message='tns:ProteusAPI_getNetworkLinkedPropertiesResponse'></output>
+  </operation>
+  <operation name='getNextAvailableIP4Address' parameterOrder='parentId'>
+   <input message='tns:ProteusAPI_getNextAvailableIP4Address'></input>
+   <output message='tns:ProteusAPI_getNextAvailableIP4AddressResponse'></output>
+  </operation>
+  <operation name='getNextAvailableIP4Network' parameterOrder='parentId size isLargerAllowed autoCreate'>
+   <input message='tns:ProteusAPI_getNextAvailableIP4Network'></input>
+   <output message='tns:ProteusAPI_getNextAvailableIP4NetworkResponse'></output>
+  </operation>
+  <operation name='getNextAvailableIPRange' parameterOrder='parentId size type properties'>
+   <input message='tns:ProteusAPI_getNextAvailableIPRange'></input>
+   <output message='tns:ProteusAPI_getNextAvailableIPRangeResponse'></output>
+  </operation>
+  <operation name='getNextAvailableIPRanges' parameterOrder='parentId size type count properties'>
+   <input message='tns:ProteusAPI_getNextAvailableIPRanges'></input>
+   <output message='tns:ProteusAPI_getNextAvailableIPRangesResponse'></output>
+  </operation>
+  <operation name='getNextIP4Address' parameterOrder='parentId properties'>
+   <input message='tns:ProteusAPI_getNextIP4Address'></input>
+   <output message='tns:ProteusAPI_getNextIP4AddressResponse'></output>
+  </operation>
+  <operation name='getParent' parameterOrder='entityId'>
+   <input message='tns:ProteusAPI_getParent'></input>
+   <output message='tns:ProteusAPI_getParentResponse'></output>
+  </operation>
+  <operation name='getProbeData' parameterOrder='definedProbe properties'>
+   <input message='tns:ProteusAPI_getProbeData'></input>
+   <output message='tns:ProteusAPI_getProbeDataResponse'></output>
+  </operation>
+  <operation name='getProbeStatus' parameterOrder='definedProbe'>
+   <input message='tns:ProteusAPI_getProbeStatus'></input>
+   <output message='tns:ProteusAPI_getProbeStatusResponse'></output>
+  </operation>
+  <operation name='getServerDeploymentRoles' parameterOrder='serverId'>
+   <input message='tns:ProteusAPI_getServerDeploymentRoles'></input>
+   <output message='tns:ProteusAPI_getServerDeploymentRolesResponse'></output>
+  </operation>
+  <operation name='getServerDeploymentStatus' parameterOrder='serverId properties'>
+   <input message='tns:ProteusAPI_getServerDeploymentStatus'></input>
+   <output message='tns:ProteusAPI_getServerDeploymentStatusResponse'></output>
+  </operation>
+  <operation name='getServerForRole' parameterOrder='roleId'>
+   <input message='tns:ProteusAPI_getServerForRole'></input>
+   <output message='tns:ProteusAPI_getServerForRoleResponse'></output>
+  </operation>
+  <operation name='getSharedNetworks' parameterOrder='tagId'>
+   <input message='tns:ProteusAPI_getSharedNetworks'></input>
+   <output message='tns:ProteusAPI_getSharedNetworksResponse'></output>
+  </operation>
+  <operation name='getSystemInfo'>
+   <input message='tns:ProteusAPI_getSystemInfo'></input>
+   <output message='tns:ProteusAPI_getSystemInfoResponse'></output>
+  </operation>
+  <operation name='getUserDefinedFields' parameterOrder='type requiredFieldsOnly'>
+   <input message='tns:ProteusAPI_getUserDefinedFields'></input>
+   <output message='tns:ProteusAPI_getUserDefinedFieldsResponse'></output>
+  </operation>
+  <operation name='getZonesByHint' parameterOrder='containerId start count options'>
+   <input message='tns:ProteusAPI_getZonesByHint'></input>
+   <output message='tns:ProteusAPI_getZonesByHintResponse'></output>
+  </operation>
+  <operation name='importServer' parameterOrder='serverId importDns importDhcp properties'>
+   <input message='tns:ProteusAPI_importServer'></input>
+   <output message='tns:ProteusAPI_importServerResponse'></output>
+  </operation>
+  <operation name='isAddressAllocated' parameterOrder='configurationId ipAddress macAddress'>
+   <input message='tns:ProteusAPI_isAddressAllocated'></input>
+   <output message='tns:ProteusAPI_isAddressAllocatedResponse'></output>
+  </operation>
+  <operation name='isMigrationRunning' parameterOrder='filename'>
+   <input message='tns:ProteusAPI_isMigrationRunning'></input>
+   <output message='tns:ProteusAPI_isMigrationRunningResponse'></output>
+  </operation>
+  <operation name='linkEntities' parameterOrder='entity1Id entity2Id properties'>
+   <input message='tns:ProteusAPI_linkEntities'></input>
+   <output message='tns:ProteusAPI_linkEntitiesResponse'></output>
+  </operation>
+  <operation name='login' parameterOrder='username password'>
+   <input message='tns:ProteusAPI_login'></input>
+   <output message='tns:ProteusAPI_loginResponse'></output>
+  </operation>
+  <operation name='loginWithOptions' parameterOrder='username password options'>
+   <input message='tns:ProteusAPI_loginWithOptions'></input>
+   <output message='tns:ProteusAPI_loginWithOptionsResponse'></output>
+  </operation>
+  <operation name='logout'>
+   <input message='tns:ProteusAPI_logout'></input>
+   <output message='tns:ProteusAPI_logoutResponse'></output>
+  </operation>
+  <operation name='mergeBlocksWithParent' parameterOrder='blockIds'>
+   <input message='tns:ProteusAPI_mergeBlocksWithParent'></input>
+   <output message='tns:ProteusAPI_mergeBlocksWithParentResponse'></output>
+  </operation>
+  <operation name='mergeSelectedBlocksOrNetworks' parameterOrder='blockOrNetworkIds blockOrNetworkToKeep'>
+   <input message='tns:ProteusAPI_mergeSelectedBlocksOrNetworks'></input>
+   <output message='tns:ProteusAPI_mergeSelectedBlocksOrNetworksResponse'></output>
+  </operation>
+  <operation name='migrateFile' parameterOrder='filename'>
+   <input message='tns:ProteusAPI_migrateFile'></input>
+   <output message='tns:ProteusAPI_migrateFileResponse'></output>
+  </operation>
+  <operation name='moveDeploymentRoles' parameterOrder='sourceServerId targetServerInterfaceId moveDnsRoles moveDhcpRoles options'>
+   <input message='tns:ProteusAPI_moveDeploymentRoles'></input>
+   <output message='tns:ProteusAPI_moveDeploymentRolesResponse'></output>
+  </operation>
+  <operation name='moveIP4Object' parameterOrder='objectId address'>
+   <input message='tns:ProteusAPI_moveIP4Object'></input>
+   <output message='tns:ProteusAPI_moveIP4ObjectResponse'></output>
+  </operation>
+  <operation name='moveIPObject' parameterOrder='objectId address options'>
+   <input message='tns:ProteusAPI_moveIPObject'></input>
+   <output message='tns:ProteusAPI_moveIPObjectResponse'></output>
+  </operation>
+  <operation name='moveResourceRecord' parameterOrder='resourceRecordId destinationZone'>
+   <input message='tns:ProteusAPI_moveResourceRecord'></input>
+   <output message='tns:ProteusAPI_moveResourceRecordResponse'></output>
+  </operation>
+  <operation name='quickDeploy' parameterOrder='entityId properties'>
+   <input message='tns:ProteusAPI_quickDeploy'></input>
+   <output message='tns:ProteusAPI_quickDeployResponse'></output>
+  </operation>
+  <operation name='reapplyTemplate' parameterOrder='templateId properties'>
+   <input message='tns:ProteusAPI_reapplyTemplate'></input>
+   <output message='tns:ProteusAPI_reapplyTemplateResponse'></output>
+  </operation>
+  <operation name='reassignIP6Address' parameterOrder='oldAddressId destination properties'>
+   <input message='tns:ProteusAPI_reassignIP6Address'></input>
+   <output message='tns:ProteusAPI_reassignIP6AddressResponse'></output>
+  </operation>
+  <operation name='removeAdditionalIPAddresses' parameterOrder='serverId ipsToRemove properties'>
+   <input message='tns:ProteusAPI_removeAdditionalIPAddresses'></input>
+   <output message='tns:ProteusAPI_removeAdditionalIPAddressesResponse'></output>
+  </operation>
+  <operation name='replaceServer' parameterOrder='serverId name defaultInterface hostName password upgrade properties'>
+   <input message='tns:ProteusAPI_replaceServer'></input>
+   <output message='tns:ProteusAPI_replaceServerResponse'></output>
+  </operation>
+  <operation name='resizeRange' parameterOrder='objectId range options'>
+   <input message='tns:ProteusAPI_resizeRange'></input>
+   <output message='tns:ProteusAPI_resizeRangeResponse'></output>
+  </operation>
+  <operation name='searchByCategory' parameterOrder='keyword category start count'>
+   <input message='tns:ProteusAPI_searchByCategory'></input>
+   <output message='tns:ProteusAPI_searchByCategoryResponse'></output>
+  </operation>
+  <operation name='searchByObjectTypes' parameterOrder='keyword types start count'>
+   <input message='tns:ProteusAPI_searchByObjectTypes'></input>
+   <output message='tns:ProteusAPI_searchByObjectTypesResponse'></output>
+  </operation>
+  <operation name='shareNetwork' parameterOrder='networkId tagId'>
+   <input message='tns:ProteusAPI_shareNetwork'></input>
+   <output message='tns:ProteusAPI_shareNetworkResponse'></output>
+  </operation>
+  <operation name='splitIP4Network' parameterOrder='networkId numberOfParts options'>
+   <input message='tns:ProteusAPI_splitIP4Network'></input>
+   <output message='tns:ProteusAPI_splitIP4NetworkResponse'></output>
+  </operation>
+  <operation name='startProbe' parameterOrder='definedProbe properties'>
+   <input message='tns:ProteusAPI_startProbe'></input>
+   <output message='tns:ProteusAPI_startProbeResponse'></output>
+  </operation>
+  <operation name='tagEntity' parameterOrder='entityId tagId'>
+   <input message='tns:ProteusAPI_tagEntity'></input>
+   <output message='tns:ProteusAPI_tagEntityResponse'></output>
+  </operation>
+  <operation name='unlinkEntities' parameterOrder='entity1Id entity2Id properties'>
+   <input message='tns:ProteusAPI_unlinkEntities'></input>
+   <output message='tns:ProteusAPI_unlinkEntitiesResponse'></output>
+  </operation>
+  <operation name='unshareNetwork' parameterOrder='networkId'>
+   <input message='tns:ProteusAPI_unshareNetwork'></input>
+   <output message='tns:ProteusAPI_unshareNetworkResponse'></output>
+  </operation>
+  <operation name='untagEntity' parameterOrder='entityId tagId'>
+   <input message='tns:ProteusAPI_untagEntity'></input>
+   <output message='tns:ProteusAPI_untagEntityResponse'></output>
+  </operation>
+  <operation name='update' parameterOrder='entity'>
+   <input message='tns:ProteusAPI_update'></input>
+   <output message='tns:ProteusAPI_updateResponse'></output>
+  </operation>
+  <operation name='updateAccessRight' parameterOrder='entityId userId value overrides properties'>
+   <input message='tns:ProteusAPI_updateAccessRight'></input>
+   <output message='tns:ProteusAPI_updateAccessRightResponse'></output>
+  </operation>
+  <operation name='updateBulkUdf' parameterOrder='data properties'>
+   <input message='tns:ProteusAPI_updateBulkUdf'></input>
+   <output message='tns:ProteusAPI_updateBulkUdfResponse'></output>
+  </operation>
+  <operation name='updateDHCP6ClientDeploymentOption' parameterOrder='option'>
+   <input message='tns:ProteusAPI_updateDHCP6ClientDeploymentOption'></input>
+   <output message='tns:ProteusAPI_updateDHCP6ClientDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='updateDHCP6ServiceDeploymentOption' parameterOrder='option'>
+   <input message='tns:ProteusAPI_updateDHCP6ServiceDeploymentOption'></input>
+   <output message='tns:ProteusAPI_updateDHCP6ServiceDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='updateDHCPClientDeploymentOption' parameterOrder='option'>
+   <input message='tns:ProteusAPI_updateDHCPClientDeploymentOption'></input>
+   <output message='tns:ProteusAPI_updateDHCPClientDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='updateDHCPDeploymentRole' parameterOrder='role'>
+   <input message='tns:ProteusAPI_updateDHCPDeploymentRole'></input>
+   <output message='tns:ProteusAPI_updateDHCPDeploymentRoleResponse'></output>
+  </operation>
+  <operation name='updateDHCPServiceDeploymentOption' parameterOrder='option'>
+   <input message='tns:ProteusAPI_updateDHCPServiceDeploymentOption'></input>
+   <output message='tns:ProteusAPI_updateDHCPServiceDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='updateDHCPVendorDeploymentOption' parameterOrder='option'>
+   <input message='tns:ProteusAPI_updateDHCPVendorDeploymentOption'></input>
+   <output message='tns:ProteusAPI_updateDHCPVendorDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='updateDNSDeploymentOption' parameterOrder='option'>
+   <input message='tns:ProteusAPI_updateDNSDeploymentOption'></input>
+   <output message='tns:ProteusAPI_updateDNSDeploymentOptionResponse'></output>
+  </operation>
+  <operation name='updateDNSDeploymentRole' parameterOrder='role'>
+   <input message='tns:ProteusAPI_updateDNSDeploymentRole'></input>
+   <output message='tns:ProteusAPI_updateDNSDeploymentRoleResponse'></output>
+  </operation>
+  <operation name='updateWithOptions' parameterOrder='entity options'>
+   <input message='tns:ProteusAPI_updateWithOptions'></input>
+   <output message='tns:ProteusAPI_updateWithOptionsResponse'></output>
+  </operation>
+  <operation name='uploadResponsePolicyItems' parameterOrder='parentId data'>
+   <input message='tns:ProteusAPI_uploadResponsePolicyItems'></input>
+   <output message='tns:ProteusAPI_uploadResponsePolicyItemsResponse'></output>
+  </operation>
+ </portType>
+ <binding name='ProteusAPIBinding' type='tns:ProteusAPI'>
+  <soap:binding style='rpc' transport='http://schemas.xmlsoap.org/soap/http'/>
+  <operation name='addACL'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addAccessRight'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addAdditionalIPAddresses'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addAliasRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addBulkHostRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addCustomOptionDefinition'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCP4Range'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCP4RangeBySize'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCP6ClientDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCP6Range'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCP6ServiceDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCPClientDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCPDeploymentRole'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCPMatchClass'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCPServiceDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCPSubClass'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDHCPVendorDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDNSDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDNSDeploymentRole'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDevice'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDeviceInstance'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDeviceSubtype'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addDeviceType'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addEntity'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addEnumNumber'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addEnumZone'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addExternalHostRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addGenericRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addHINFORecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addHostRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP4BlockByCIDR'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP4BlockByRange'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP4IPGroupByRange'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP4IPGroupBySize'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP4Network'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP4NetworkTemplate'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP4ReconciliationPolicy'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP6Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP6BlockByMACAddress'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP6BlockByPrefix'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addIP6NetworkByPrefix'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addMACAddress'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addMXRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addNAPTRRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addParentBlock'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addParentBlockWithProperties'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addResourceRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addResponsePolicy'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addSRVRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addServer'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addStartOfAuthority'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addTFTPDeploymentRole'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addTFTPFile'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addTFTPFolder'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addTFTPGroup'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addTXTRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addTag'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addTagGroup'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addUser'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addUserGroup'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addVendorOptionDefinition'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addVendorProfile'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addView'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addZone'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='addZoneTemplate'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='assignIP4Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='assignIP6Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='assignNextAvailableIP4Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='assignOrUpdateTemplate'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='associateMACAddressWithPool'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='breakXHAPair'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='changeStateIP4Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='clearIP6Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='configureReplication'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='createXHAPair'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='delete'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteAccessRight'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteDHCP6ClientDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteDHCP6ServiceDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteDHCPClientDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteDHCPDeploymentRole'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteDHCPServiceDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteDHCPVendorDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteDNSDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteDNSDeploymentRole'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteDNSDeploymentRoleForView'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteDeviceInstance'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deleteWithOptions'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='denyMACAddress'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deployServer'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deployServerConfig'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='deployServerServices'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='editXHAPair'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='failoverXHA'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getAccessRight'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getAccessRightsForEntity'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getAccessRightsForUser'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getAdditionalIPAddresses'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getAliasesByHint'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDHCP6ClientDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDHCP6ServiceDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDHCPClientDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDHCPDeploymentRole'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDHCPServiceDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDHCPVendorDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDNSDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDNSDeploymentRole'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDNSDeploymentRoleForView'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDependentRecords'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDeploymentOptions'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDeploymentRoles'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDiscoveredDevice'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDiscoveredDeviceArpEntries'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDiscoveredDeviceHosts'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDiscoveredDeviceInterfaces'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDiscoveredDeviceMacAddressEntries'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDiscoveredDeviceNetworks'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDiscoveredDeviceVlans'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getDiscoveredDevices'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getEntities'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getEntitiesByName'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getEntitiesByNameUsingOptions'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getEntityByCIDR'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getEntityById'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getEntityByName'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getEntityByPrefix'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getEntityByRange'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getHostRecordsByHint'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getIP4Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getIP4NetworksByHint'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getIP6Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getIPRangedByIP'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getKSK'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getLinkedEntities'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getMACAddress'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getMACAddressesInPool'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getMaxAllowedRange'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getNetworkLinkedProperties'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getNextAvailableIP4Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getNextAvailableIP4Network'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getNextAvailableIPRange'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getNextAvailableIPRanges'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getNextIP4Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getParent'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getProbeData'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getProbeStatus'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getServerDeploymentRoles'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getServerDeploymentStatus'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getServerForRole'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getSharedNetworks'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getSystemInfo'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getUserDefinedFields'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='getZonesByHint'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='importServer'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='isAddressAllocated'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='isMigrationRunning'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='linkEntities'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='login'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='loginWithOptions'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='logout'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='mergeBlocksWithParent'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='mergeSelectedBlocksOrNetworks'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='migrateFile'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='moveDeploymentRoles'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='moveIP4Object'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='moveIPObject'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='moveResourceRecord'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='quickDeploy'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='reapplyTemplate'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='reassignIP6Address'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='removeAdditionalIPAddresses'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='replaceServer'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='resizeRange'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='searchByCategory'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='searchByObjectTypes'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='shareNetwork'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='splitIP4Network'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='startProbe'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='tagEntity'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='unlinkEntities'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='unshareNetwork'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='untagEntity'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='update'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateAccessRight'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateBulkUdf'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateDHCP6ClientDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateDHCP6ServiceDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateDHCPClientDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateDHCPDeploymentRole'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateDHCPServiceDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateDHCPVendorDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateDNSDeploymentOption'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateDNSDeploymentRole'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='updateWithOptions'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+  <operation name='uploadResponsePolicyItems'>
+   <soap:operation soapAction=''/>
+   <input>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </input>
+   <output>
+    <soap:body namespace='http://api.proteus.bluecatnetworks.com' use='literal'/>
+   </output>
+  </operation>
+ </binding>
+ <service name='ProteusAPI'>
+  <port binding='tns:ProteusAPIBinding' name='ProteusAPIPort'>
+   <soap:address location='https://localhost/Services/API'/>
+  </port>
+ </service>
+</definitions>
