@@ -11,6 +11,9 @@ module Proteus
     CNAMERECORD     = 'AliasRecord'
     HINFORECORD     = 'HINFORecord'
     SRVRECORD       = 'SRVRecord'
+    IP4ADDRESS      = 'IP4Address'
     IP4BLOCK        = 'IP4Block'
+    IP4NETWORK      = 'IP4Network'
+    DHCP4RANGE      = 'DHCP4Range'
   end
 end

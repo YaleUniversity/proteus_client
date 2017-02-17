@@ -15,7 +15,7 @@
 Add the following to your `Gemfile`
 
 ```
-gem 'proteus', :git => 'git://git.yale.edu/inf-sa/proteus_client.git'
+gem 'proteus', git: 'https://github.com/YaleUniversity/proteus_client.git'
 ```
 
 or from the command line:
@@ -33,62 +33,31 @@ The proteus command line utility can be configured via files, environment variab
 
 ## Usage
 
-### Add:
+```
+NAME
+    proteus - #AllyourDNSRecords are belong to us.
 
-Add will add a record to Proteus.
+SYNOPSIS
+    proteus [global options] command [command options] [arguments...]
 
-#### host (A) record
-```
-proteus add host myhost.its.yale.internal 172.16.1.99
-```
+GLOBAL OPTIONS
+    -a, --username=arg    - Username to use when connecting to proteus ENV:PROTEUS_USER (default: none)
+    -c, --config_file=arg - Location of a config file (overrides environment variables and command line flags) (default: none)
+    --help                - Show this message
+    -l, --loglevel=arg    - Log level (debug, info, warn, error) (default: warn)
+    -p, --password=arg    - Password to use when connecting to proteus ENV:PROTEUS_PASS (default: none)
+    -u, --url=arg         - Url to proteus (not including URI to the WSDL) ENV:PROTEUS_URL (default: none)
+    -v, --viewid=arg      - Default view id to use when connecting to proteus ENV:PROTEUS_VIEWID (default: none)
 
-#### alias (CNAME)
-```
-proteus add alias myalias.its.yale.internal myhost.its.yale.internal
-```
-
-#### external record (outside of proteus managed zones)
-```
-proteus add external foobar.someother.domain.com
-```
-
-### Search:
-
-Search will search for a keyword and return a list of items that match that keyword.
-
-#### host (A) record
-```
-proteus search host keyword
-```
-
-#### alias (CNAME)
-```
-proteus search alias keyword
-```
-
-#### external record (outside of proteus managed zones)
-```
-proteus search external keyword
-```
-
-### Show:
-
-Show will show the details for an entity in Proteus.
- 
-#### by id
-```
-proteus show id
-```
-
-### Delete:
-
-Delete will remove an entity from Proteus.
-
-*Note:* Deletes are programatically limited to specific `Proteus::Types` identified by `ALLOWDELETE`
- 
-#### by id
-```
-proteus delete id
+COMMANDS
+    alias    - Performs actions on alias records
+    external - Performs actions on external records
+    help     - Shows a list of commands or help for one command
+    host     - Performs actions on host records
+    id       - Manage Entities by id
+    info     - Displays system info
+    ip       - Manage IPv4 addresses
+    network  - Manage IPv4 Networks
 ```
 
 ### Example config file:
@@ -106,3 +75,18 @@ log:
 ### Authors
   - Tenyo Grozev (tenyo.grozev@yale.edu)
   - Camden Fisher (edward.fisher@yale.edu)
+
+### License
+```
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

@@ -1,10 +1,11 @@
 PATH
   remote: .
   specs:
-    proteus (0.1.0)
+    proteus (0.2.0)
       awesome_print (~> 0)
       gli (~> 2.15)
       mini_portile2 (~> 2.0)
+      netaddr (~> 1.5, >= 1.5.1)
       savon (~> 2.0)
 
 GEM
@@ -30,6 +31,7 @@ GEM
       socksify
     json (2.0.3)
     mini_portile2 (2.1.0)
+    netaddr (1.5.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     nori (2.6.0)

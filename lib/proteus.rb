@@ -1,4 +1,5 @@
 # Collect and require Proteus libraries
+require 'proteus/error'
 require 'proteus/constants'
 require 'proteus/helpers'
 require 'proteus/actions'
