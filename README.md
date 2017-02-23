@@ -21,7 +21,7 @@ gem 'proteus', git: 'https://github.com/YaleUniversity/proteus_client.git'
 or from the command line:
 
 ```
-git clone git://git.yale.edu/inf-sa/proteus_client.git
+git clone git@github.com:YaleUniversity/proteus_client.git
 cd proteus_client &&  gem build proteus.gemspec
 gem install proteus-*.gem
 
