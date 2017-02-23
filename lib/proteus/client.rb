@@ -36,6 +36,7 @@ module Proteus
     # </message>
     def login!
       @cookies = @client.call(:login, message: { username: @username, password: @password }).http.cookies
+      self
     end
 
     # logout of proteus api

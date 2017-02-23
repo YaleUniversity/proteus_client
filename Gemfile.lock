@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    proteus (0.2.0)
+    proteus (0.2.1)
       awesome_print (~> 0)
       gli (~> 2.15)
       mini_portile2 (~> 2.0)
@@ -95,4 +95,4 @@ DEPENDENCIES
   yard (~> 0)
 
 BUNDLED WITH
-   1.14.3
+   1.14.4
