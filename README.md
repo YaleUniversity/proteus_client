@@ -1,6 +1,6 @@
 # Bluecat Proteus API client
 
-  Simple ruby API client for Proteus
+  Simple ruby API client for Proteus.
   Some inspiration drawn from: https://github.com/rjbalest/proteus-ruby-api
 
 ## Overview
