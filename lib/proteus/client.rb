@@ -12,19 +12,20 @@ module Proteus
 
     # Initialize a proteus [soap] client.  Expect the options hash to contain:
     # user, password, default_viewid, url
-    def initialize(options = {}, log_level = 'warn')
-      @logger = Logger.new(STDOUT)
-      @logger.level = Object.const_get("Logger::#{log_level.upcase}")
+    def initialize(options = {})
+      loglevel = options[:loglevel] || 'warn'
+      @logger = options[:logger] || Logger.new(STDOUT)
+      @logger.level = Object.const_get("Logger::#{loglevel.upcase}")
 
-      @user = options['user']
-      @password = options['password']
-      @view_id = options['default_viewid'] || 0
+      @username = options[:username]
+      @password = options[:password]
+      @view_id = options[:viewid] || 0
 
       @client = Savon.client do
-        wsdl "#{options['url']}/Services/API?wsdl"
+        wsdl "#{options[:url]}/Services/API?wsdl"
         ssl_verify_mode :none
         log true
-        log_level log_level.to_sym
+        log_level loglevel.to_sym
       end
     end
 
@@ -34,7 +35,7 @@ module Proteus
     #   <part name="password" type="xsd:string"/>
     # </message>
     def login!
-      @cookies = @client.call(:login, message: { username: @user, password: @password }).http.cookies
+      @cookies = @client.call(:login, message: { username: @username, password: @password }).http.cookies
     end
 
     # logout of proteus api

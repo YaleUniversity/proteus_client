@@ -1,7 +1,5 @@
-bluecat:
-  url: 'https://proteus.its.yale.edu'
-  user: 'api_user'
-  password: 'xxx'
-  default_viewid: 1637279
-log:
-  level: warn
+url: 'https://proteus.example.com'
+username: 'api_user'
+password: 'xxx'
+viewid: 123456
+log_level: warn

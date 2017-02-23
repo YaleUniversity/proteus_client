@@ -7,11 +7,12 @@ module Proteus
   class ApiEntity
 
     include Proteus::Helpers
+    include Proteus::ApiEntityError
 
     attr_accessor :id, :name, :type
 
     def initialize(attributes = {})
-      raise 'Cannot initialize empty API entity' if attributes.nil?
+      raise Proteus::ApiEntityError::EntityNotFound, 'Cannot initialize empty API entity' if attributes.nil?
       @id = attributes[:id]
       @name = attributes[:name]
       @type = attributes[:type]
@@ -19,6 +20,10 @@ module Proteus
     end
 
     def properties
+      @properties
+    end
+
+    def properties_to_s
       return '' if @properties.nil?
       compose(@properties)
     end
@@ -30,7 +35,13 @@ module Proteus
     def inspect
       instance_variables.collect do |v|
         "#{v.to_s.gsub('@','')}: #{instance_variable_get(v)}"
-      end.join("\n")
+      end.join(' | ')
+    end
+
+    def to_s
+      instance_variables.collect do |v|
+        "#{v.to_s.gsub('@','')}: #{instance_variable_get(v)}"
+      end.join(' | ')
     end
   end
 end

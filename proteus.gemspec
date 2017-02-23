@@ -24,11 +24,12 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = %w(lib lib/proteus)
+  spec.require_paths = %w(lib lib/proteus lib/actions)
 
   spec.add_dependency 'awesome_print', '~> 0'
   spec.add_dependency 'gli', '~> 2.15'
   spec.add_dependency 'mini_portile2', '~> 2.0'
+  spec.add_dependency 'netaddr', '~> 1.5', '>= 1.5.1'
   spec.add_dependency 'savon', '~> 2.0'
 
   spec.add_development_dependency 'bundler', '~> 1.10'

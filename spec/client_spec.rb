@@ -14,17 +14,18 @@ describe Proteus::Client do
   describe '#login!' do
     it 'logs into proteus' do
       options = {
-          'user' => 'like',
-          'password' => 'aboss',
-          'url' => 'https://localhost'
+          username:'like',
+          password: 'aboss',
+          url: 'https://localhost',
+          loglevel: 'debug'
       }
 
-      message = { username: options['user'], password: options['password'] }
+      message = { username: options[:username], password: options[:password] }
       fixture = File.read('spec/fixtures/client/login.xml')
 
       savon.expects(:login).with(message: message).returns(fixture)
 
-      client = Proteus::Client.new(options, 'debug')
+      client = Proteus::Client.new(options)
       response = client.login!
 
       expect(response).to eq([])
@@ -34,16 +35,17 @@ describe Proteus::Client do
   describe '#logout!' do
     it 'logs out of proteus' do
       options = {
-          'user' => 'like',
-          'password' => 'aboss',
-          'url' => 'https://localhost'
+          username:'like',
+          password: 'aboss',
+          url: 'https://localhost',
+          loglevel: 'debug'
       }
 
       fixture = File.read('spec/fixtures/client/logout.xml')
 
       savon.expects(:logout).returns(fixture)
 
-      client = Proteus::Client.new(options, 'debug')
+      client = Proteus::Client.new(options)
       response = client.logout!
 
       expect(response).to be_successful
