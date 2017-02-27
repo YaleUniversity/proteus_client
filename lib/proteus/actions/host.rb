@@ -36,6 +36,17 @@ module Proteus
       def add_external_host_record(name, properties = '')
         call(:add_external_host_record, viewId: @view_id, name: name, properties: properties )
       end
+
+      # get a list of host records by a hint
+      # <message name="ProteusAPI_getHostRecordsByHint">
+      #   <part name="start" type="xsd:int"/>
+      #   <part name="count" type="xsd:int"/>
+      #   <part name="options" type="xsd:string"/>
+      # </message>
+      def get_host_records_by_hint(start = 0, count = 10, options = '')
+        response = call(:get_host_records_by_hint, start: start, count: count, options: options)
+        normalize(response).collect { |i| Proteus::ApiEntity.new(i) }
+      end
     end
   end
 end

@@ -1,7 +1,6 @@
 module Proteus
   module Actions
     module Zone
-
       # get a list of zones by a hint
       # <message name="ProteusAPI_getZonesByHint">
       #   <part name="containerId" type="xsd:long"/>

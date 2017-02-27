@@ -7,3 +7,7 @@
 
 # 0.2.1
 * Client `login!` should return the client instance 
+
+# 0.2.2
+* Add support for `get_host_record_by_hint`
+* Add support for `get_aliases_by_hint`

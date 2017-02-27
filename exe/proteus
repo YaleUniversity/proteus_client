@@ -94,6 +94,16 @@ command :host do |h|
     end
   end
 
+  h.desc 'finds an host record by a hint'
+  h.arg_name 'hint'
+  h.command :find do |f|
+    f.action do |_global_options, _options, args|
+      validate_argnum(1, args.length)
+      opts = "hint=#{args[0]}"
+      ap @proteus.get_host_records_by_hint(0, 10, opts)
+    end
+  end
+
   h.desc 'Add a host record (A)'
   h.arg_name 'fqdn ip'
   h.command :add do |a|
@@ -135,6 +145,16 @@ command :alias do |c|
     s.action do |_global_options, _options, args|
       validate_argnum(1, args.length)
       ap @proteus.search_by_object_types(args[0], Proteus::Types::CNAMERECORD)
+    end
+  end
+
+  c.desc 'finds an alias record by a hint'
+  c.arg_name 'hint'
+  c.command :find do |f|
+    f.action do |_global_options, _options, args|
+      validate_argnum(1, args.length)
+      opts = "hint=#{args[0]}"
+      ap @proteus.get_aliases_by_hint(0, 10, opts)
     end
   end
 
@@ -188,6 +208,15 @@ command :external do |e|
     a.action do |_global_options, _options, args|
       validate_argnum(1, args.length)
       ap @proteus.add_external_host_record(args[0])
+    end
+  end
+
+  e.desc 'Show external record'
+  e.arg_name 'name'
+  e.command :show do |s|
+    s.action do |_global_options, _options, args|
+      validate_argnum(1, args.length)
+      ap @proteus.get_entity_by_name(@config.default_viewid, args[0], Proteus::Types::EXTERNALHOST)
     end
   end
 end
