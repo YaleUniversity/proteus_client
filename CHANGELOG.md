@@ -11,3 +11,7 @@
 # 0.2.2
 * Add support for `get_host_record_by_hint`
 * Add support for `get_aliases_by_hint`
+
+# 0.2.3
+* `compact` array response from `Proteus::Helpers.normalize`
+* Add rspec tests for Helpers, and ApiEntity
