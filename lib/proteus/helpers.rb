@@ -29,7 +29,7 @@ module Proteus
     # { item: [ { foo: 'bar', baz: 'biz' }, { foo: 'boz', baz: 'buz' } ]
     def normalize(hash)
       hash ||= {}
-      [hash[:item]].flatten
+      [hash[:item]].flatten.compact
     end
   end
 end

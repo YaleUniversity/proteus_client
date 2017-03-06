@@ -28,7 +28,7 @@ describe Proteus::Client do
       client = Proteus::Client.new(options)
       response = client.login!
 
-      expect(response).to eq([])
+      expect(response).to eq(client)
     end
   end
 
