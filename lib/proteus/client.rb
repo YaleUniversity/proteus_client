@@ -1,6 +1,6 @@
-# Module to hold Proteus related classes
 module Proteus
-  # Class to describe a Proteus client
+  ##
+  # Class to describe a Proteus client object
   class Client
     require 'logger'
     require 'savon'
@@ -10,6 +10,7 @@ module Proteus
 
     attr_accessor :user, :password, :view_id
 
+    ##
     # Initialize a proteus [soap] client.  Expect the options hash to contain:
     # user, password, default_viewid, url
     def initialize(options = {})
@@ -29,18 +30,20 @@ module Proteus
       end
     end
 
-    # login to proteus api and return authorization cookie
-    # <message name="ProteusAPI_login">
-    #   <part name="username" type="xsd:string"/>
-    #   <part name="password" type="xsd:string"/>
-    # </message>
+    ##
+    # Login to the proteus api and return an authorization cookie
+    #   <message name="ProteusAPI_login">
+    #     <part name="username" type="xsd:string"/>
+    #     <part name="password" type="xsd:string"/>
+    #   </message>
     def login!
       @cookies = @client.call(:login, message: { username: @username, password: @password }).http.cookies
       self
     end
 
-    # logout of proteus api
-    # <message name="ProteusAPI_logout"/>
+    ##
+    # Logout of the proteus api
+    #   <message name="ProteusAPI_logout"/>
     def logout!
       @client.call(:logout) { |ctx| ctx.cookies @cookies }
     end

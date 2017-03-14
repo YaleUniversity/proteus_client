@@ -1,4 +1,5 @@
 module Proteus
+  ##
   # Actions is the top level module for API actions
   module Actions
     require 'proteus/actions/entity'
@@ -19,7 +20,8 @@ module Proteus
     include Proteus::Actions::Ipv4
     include Proteus::Actions::Zone
 
-    # make a call to the api
+    ##
+    # Makes a call to the proteus API
     def call(action, message = nil)
       @logger.info "call_action: #{action}, message: #{message.inspect}"
       api_response_obj = (action.to_s + '_response').to_sym
@@ -31,10 +33,11 @@ module Proteus
       response
     end
 
-    # gets some system information
-    # <message name="ProteusAPI_getSystemInfoResponse">
-    #   <part name="return" type="xsd:string"/>
-    # </message>
+    ##
+    # Gets system information from the proteus API
+    #   <message name="ProteusAPI_getSystemInfoResponse">
+    #     <part name="return" type="xsd:string"/>
+    #   </message>
     def system_info
       Proteus::SystemInfo.new call(:get_system_info)
     end
