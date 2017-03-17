@@ -1,4 +1,5 @@
 module Proteus
+  ##
   # ApiEntity describes an API service Entity object
   #   @id: The database ID of the object in Address Manager.
   #   @name: The field name, which might be null.

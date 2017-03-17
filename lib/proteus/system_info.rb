@@ -1,4 +1,5 @@
 module Proteus
+  ##
   # SystemInfo describes a proteus system information object
   #   @hostname: The host name of the Address Manager server.
   #   @version: The version of the Address Manager software
@@ -15,6 +16,8 @@ module Proteus
     attr_reader :hostname, :version, :address, :cluster_role, :replication_role, :replication_status,
                 :entity_count, :database_size, :logged_in_users
 
+    ##
+    # initialize a proteus system information object from a properties hash
     def initialize(properties)
       attributes = decompose(properties)
       @hostname = attributes[:hostName]
@@ -28,6 +31,8 @@ module Proteus
       @logged_in_users = attributes[:loggedInUsers]
     end
 
+    ##
+    # create a string representation of a proteus system information object
     def inspect
       instance_variables.collect do |v|
         "#{v.to_s.gsub('@','')}: #{instance_variable_get(v)}"

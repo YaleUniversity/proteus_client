@@ -15,3 +15,7 @@
 # 0.2.3
 * `compact` array response from `Proteus::Helpers.normalize`
 * Add rspec tests for Helpers, and ApiEntity
+
+# 0.2.4
+* Move `add_alias_record` to `Proteus::Actions::Alias`
+* Cleanup comments in preparation for documentation cleanup

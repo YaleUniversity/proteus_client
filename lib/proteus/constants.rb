@@ -1,4 +1,6 @@
 module Proteus
+  ##
+  # A module to encapsulate the proteus standard types
   module Types
     CONFIGURATION   = 'Configuration'
     VIEW            = 'View'

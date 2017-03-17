@@ -1,15 +1,32 @@
 module Proteus
   module Actions
+    ##
+    # This module encapsulates the actions related to managing Alias records
     module Alias
-      # get a list of alias records by a hint
-      # <message name="ProteusAPI_getAliasesByHint">
-      #   <part name="start" type="xsd:int"/>
-      #   <part name="count" type="xsd:int"/>
-      #   <part name="options" type="xsd:string"/>
-      # </message>
+      ##
+      # Get a list of alias records by a hint
+      #   <message name="ProteusAPI_getAliasesByHint">
+      #     <part name="start" type="xsd:int"/>
+      #     <part name="count" type="xsd:int"/>
+      #     <part name="options" type="xsd:string"/>
+      #   </message>
       def get_aliases_by_hint(start = 0, count = 10, options = '')
         response = call(:get_aliases_by_hint, start: start, count: count, options: options)
         normalize(response).collect { |i| Proteus::ApiEntity.new(i) }
+      end
+
+      ##
+      # Add an alias record
+      #   <message name="ProteusAPI_addAliasRecord">
+      #     <part name="viewId" type="xsd:long"/>
+      #     <part name="absoluteName" type="xsd:string"/>
+      #     <part name="linkedRecordName" type="xsd:string"/>
+      #     <part name="ttl" type="xsd:long"/>
+      #     <part name="properties" type="xsd:string"/>
+      #   </message>
+      def add_alias_record(cname, linked, ttl = -1, properties = '')
+        call(:add_alias_record, viewId: @view_id, absoluteName: cname,
+             linkedRecordName: linked, ttl: ttl, properties: properties)
       end
     end
   end
