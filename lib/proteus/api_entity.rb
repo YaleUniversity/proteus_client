@@ -44,5 +44,14 @@ module Proteus
         "#{v.to_s.gsub('@','')}: #{instance_variable_get(v)}"
       end.join(' | ')
     end
+
+    def to_h
+      {
+        id: @id,
+        name: @name,
+        type: @type,
+        properties: @properties
+      }
+    end
   end
 end

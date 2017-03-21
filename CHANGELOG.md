@@ -22,3 +22,4 @@
 
 # 0.2.5
 * Allow deletes of IP4ADDRESS
+* Add `ApiEntity#to_h`

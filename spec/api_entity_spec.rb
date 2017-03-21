@@ -16,6 +16,15 @@ describe Proteus::ApiEntity do
       'id: 12345 | name: foobar | type: Thing | properties: {:foo=>"bar", :baz=>"biz", :buz=>"boz"}'
     end
 
+    subject(:hashified) do
+      {
+        id: '12345',
+        name: 'foobar',
+        type: 'Thing',
+        properties: { foo: 'bar', baz: 'biz', buz: 'boz' }
+      }
+    end
+
     describe '#inspect' do
       it 'returns a inspection string' do
         expect(api_entitiy.inspect).to eq(stringified)
@@ -25,6 +34,12 @@ describe Proteus::ApiEntity do
     describe '#to_s' do
       it 'returns a stringified verison' do
         expect(api_entitiy.to_s).to eq(stringified)
+      end
+    end
+
+    describe '#to_h' do
+      it 'returns a hashified verison' do
+        expect(api_entitiy.to_h).to eq(hashified)
       end
     end
   end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    proteus (0.2.4)
+    proteus (0.2.5)
       awesome_print (~> 0)
       gli (~> 2.15)
       mini_portile2 (~> 2.0)
