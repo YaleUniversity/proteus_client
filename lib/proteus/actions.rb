@@ -11,7 +11,8 @@ module Proteus
     # Only allow deletes for certain record types for now
     ALLOWDELETE = [ Proteus::Types::HOSTRECORD,
                     Proteus::Types::EXTERNALHOST,
-                    Proteus::Types::CNAMERECORD ]
+                    Proteus::Types::CNAMERECORD,
+                    Proteus::Types::IP4ADDRESS ]
 
     include Proteus::Helpers
     include Proteus::Actions::Entity
