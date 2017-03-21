@@ -19,3 +19,6 @@
 # 0.2.4
 * Move `add_alias_record` to `Proteus::Actions::Alias`
 * Cleanup comments in preparation for documentation cleanup
+
+# 0.2.5
+* Allow deletes of IP4ADDRESS
