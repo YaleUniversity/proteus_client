@@ -2,20 +2,21 @@ module Proteus
   ##
   # A module to encapsulate the proteus standard types
   module Types
-    CONFIGURATION   = 'Configuration'
-    VIEW            = 'View'
-    ZONE            = 'Zone'
-    GENERICRECORD   = 'GenericRecord'
-    EXTERNALHOST    = 'ExternalHostRecord'
-    HOSTRECORD      = 'HostRecord'
-    MXRECORD        = 'MXRecord'
-    TXTRECORD       = 'TXTRecord'
     CNAMERECORD     = 'AliasRecord'
+    CONFIGURATION   = 'Configuration'
+    DHCP4RANGE      = 'DHCP4Range'
+    ENTITY          = 'Entity'
+    EXTERNALHOST    = 'ExternalHostRecord'
+    GENERICRECORD   = 'GenericRecord'
     HINFORECORD     = 'HINFORecord'
-    SRVRECORD       = 'SRVRecord'
+    HOSTRECORD      = 'HostRecord'
     IP4ADDRESS      = 'IP4Address'
     IP4BLOCK        = 'IP4Block'
     IP4NETWORK      = 'IP4Network'
-    DHCP4RANGE      = 'DHCP4Range'
+    MXRECORD        = 'MXRecord'
+    SRVRECORD       = 'SRVRecord'
+    TXTRECORD       = 'TXTRecord'
+    VIEW            = 'View'
+    ZONE            = 'Zone'
   end
 end

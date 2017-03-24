@@ -1,5 +1,5 @@
 url: 'https://proteus.example.com'
 username: 'api_user'
 password: 'xxx'
-viewid: 123456
+viewid: '123456'
 log_level: warn

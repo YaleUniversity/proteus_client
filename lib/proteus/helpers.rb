@@ -25,6 +25,7 @@ module Proteus
     #   "foo=bar|baz=biz|boz=buz"
     def compose(prop_hash)
       return nil if prop_hash.nil?
+      return prop_hash if prop_hash.is_a?(String)
       prop_hash.map do |k, v|
         "#{k}=#{v}"
       end.join('|')

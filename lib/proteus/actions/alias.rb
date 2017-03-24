@@ -28,6 +28,23 @@ module Proteus
         call(:add_alias_record, viewId: @view_id, absoluteName: cname,
              linkedRecordName: linked, ttl: ttl, properties: properties)
       end
+
+      ##
+      # Gets an individual alias record by FQDN
+      def get_alias_record(fqdn)
+        records = get_aliases_by_hint(0, 2, 'hint=^' + fqdn + '$')
+        @logger.debug("Got records: #{records.inspect}")
+        msg = 'Received too many records from search!'
+        raise Proteus::ApiError::NonDeterministicResponse, msg if records.size > 1
+        raise Proteus::ApiEntityError::EntityNotFound, fqdn + ' not found!' if records.size == 0
+        records.first
+      end
+
+      ##
+      # Delete an alias record
+      def delete_alias_record(fqdn)
+        delete(get_alias_record(fqdn).id)
+      end
     end
   end
 end

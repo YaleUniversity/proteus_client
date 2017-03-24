@@ -8,7 +8,8 @@
   This app connects to a Bluecat Proteus server via SOAP API to perform various DNS-related tasks.
   All of the configuration is in config/config.yml that needs to be customized for you particular 
   setup. All you need is the URL, API username/password and the View ID in Proteus. In our case the
-  View ID is the id of the default DNS view as that's where everything goes.
+  View ID is the id of the default DNS view as that's where everything goes.  The application also 
+  supports configuration via the environment or with command line flags.
 
 ## Installation
 
@@ -32,49 +33,105 @@ gem install proteus-*.gem
 The proteus command line utility can be configured via files, environment variables or flags.  See `proteus help` for details.
 
 ## Usage
-
 ```
 NAME
     proteus - #AllyourDNSRecords are belong to us.
 
-SYNOPSIS
-    proteus [global options] command [command options] [arguments...]
+USAGE
+    proteus [command, command, ...] [options] [arguments]
 
-GLOBAL OPTIONS
-    -a, --username=arg    - Username to use when connecting to proteus ENV:PROTEUS_USER (default: none)
-    -c, --config_file=arg - Location of a config file (overrides environment variables and command line flags) (default: none)
-    --help                - Show this message
-    -l, --loglevel=arg    - Log level (debug, info, warn, error) (default: warn)
-    -p, --password=arg    - Password to use when connecting to proteus ENV:PROTEUS_PASS (default: none)
-    -u, --url=arg         - Url to proteus (not including URI to the WSDL) ENV:PROTEUS_URL (default: none)
-    -v, --viewid=arg      - Default view id to use when connecting to proteus ENV:PROTEUS_VIEWID (default: none)
+DESCRIPTION
+    Provides access to proteus DNS and IP management through a CLI.
 
 COMMANDS
-    alias    - Performs actions on alias records
-    external - Performs actions on external records
-    help     - Shows a list of commands or help for one command
-    host     - Performs actions on host records
-    id       - Manage Entities by id
-    info     - Displays system info
-    ip       - Manage IPv4 addresses
-    network  - Manage IPv4 Networks
+    alias        manage external host dns records
+    external     manage external host dns records
+    help         show help
+    host         manage host dns records
+    id           manage proteus entities by id
+    info         displays proteus system information
+    ip           manage ip address records
+
+OPTIONS
+       --config_file=<value>      Location of a config (override env/flags)
+    -h --help                     show help for this command
+       --loglevel=<value>         Log level (debug|info|warn|error)
+       --password=<value>         Proteus password ENV:PROTEUS_PASS
+       --url=<value>              Proteus URL ENV:PROTEUS_URL
+       --username=<value>         Proteus username ENV:PROTEUS_USER
+       --viewid=<value>           Default view id ENV:PROTEUS_VIEWID
+```
+
+additional help is available from the subcommands.  For example:
+
+```
+NAME
+    ip - manage ip address records
+
+USAGE
+    proteus ip [options]
+
+SUBCOMMANDS
+    assign     assign the next available ip by cidr
+    delete     delete an ip assignment
+    next       show the next available ip by cidr
+    show       show an ip assignment
+    udf        list user defined fields for ip addresses
+
+OPTIONS
+    -c --configid=<value>         Override config id, default gets the first
+                                  entity in the view
+
+OPTIONS FOR PROTEUS
+       --config_file=<value>      Location of a config (override env/flags)
+    -h --help                     show help for this command
+       --loglevel=<value>         Log level (debug|info|warn|error)
+       --password=<value>         Proteus password ENV:PROTEUS_PASS
+       --url=<value>              Proteus URL ENV:PROTEUS_URL
+       --username=<value>         Proteus username ENV:PROTEUS_USER
+       --viewid=<value>           Default view id ENV:PROTEUS_VIEWID
+```
+
+```
+NAME
+    assign - assign the next available ip by cidr
+
+USAGE
+    proteus ip assign [options] cidr fqdn
+    [properties]
+
+DESCRIPTION
+    Assigns the next available IP address by CIDR.  Behind the scenes, this
+    is generating a "canary" ip address which is used to get the network ID
+    which is used as the parent for assignment. Properties are currently
+    passed as a string of key=value pairs separated by "|".  ie.
+    "foo=bar|baz=buz|boz=biz"
+
+OPTIONS FOR IP
+    -c --configid=<value>         Override config id, default gets the first
+                                  entity in the view
+       --config_file=<value>      Location of a config (override env/flags)
+    -h --help                     show help for this command
+       --loglevel=<value>         Log level (debug|info|warn|error)
+       --password=<value>         Proteus password ENV:PROTEUS_PASS
+       --url=<value>              Proteus URL ENV:PROTEUS_URL
+       --username=<value>         Proteus username ENV:PROTEUS_USER
+       --viewid=<value>           Default view id ENV:PROTEUS_VIEWID
 ```
 
 ### Example config file:
 
 ```yaml
-bluecat:
-  url: 'https://proteus.its.example.com'
-  user: 'api_user'
-  password: 'xxx'
-  default_viewid: 1234567
-log:
-  level: warn
+url: 'https://proteus.example.com'
+username: 'api_user'
+password: 'xxx'
+viewid: '123456'
+log_level: warn
 ```
 
 ### Authors
+  - Camden Fisher (camden.fisher@yale.edu)
   - Tenyo Grozev (tenyo.grozev@yale.edu)
-  - Camden Fisher (edward.fisher@yale.edu)
 
 ### License
 ```

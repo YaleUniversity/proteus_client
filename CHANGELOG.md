@@ -23,3 +23,7 @@
 # 0.2.5
 * Allow deletes of IP4ADDRESS
 * Add `ApiEntity#to_h`
+
+# 0.3.0
+* Convert to CRI from GLI
+* Add helper methods for getting/deleting/searching

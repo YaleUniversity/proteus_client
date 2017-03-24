@@ -6,19 +6,23 @@ module Proteus
     require 'proteus/actions/alias'
     require 'proteus/actions/host'
     require 'proteus/actions/ipv4'
+    require 'proteus/actions/udf'
     require 'proteus/actions/zone'
 
     # Only allow deletes for certain record types for now
-    ALLOWDELETE = [ Proteus::Types::HOSTRECORD,
-                    Proteus::Types::EXTERNALHOST,
-                    Proteus::Types::CNAMERECORD,
-                    Proteus::Types::IP4ADDRESS ]
+    ALLOWDELETE = [
+      Proteus::Types::HOSTRECORD,
+      Proteus::Types::EXTERNALHOST,
+      Proteus::Types::CNAMERECORD,
+      Proteus::Types::IP4ADDRESS
+    ]
 
     include Proteus::Helpers
     include Proteus::Actions::Entity
     include Proteus::Actions::Alias
     include Proteus::Actions::Host
     include Proteus::Actions::Ipv4
+    include Proteus::Actions::Udf
     include Proteus::Actions::Zone
 
     ##

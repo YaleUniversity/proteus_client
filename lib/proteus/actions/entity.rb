@@ -73,7 +73,7 @@ module Proteus
       #   </message>
       def get_entity_by_cidr(parent_id = 0, cidr = '0.0.0.0/0', type = Proteus::Types::IP4NETWORK)
         parent_id ||= @view_id
-        Proteus::ApiEntity.new call(:get_entity_by_cidr, parentId: parent_id, CIDR: cidr, type: type)
+        Proteus::ApiEntity.new call(:get_entity_by_cidr, parentId: parent_id, cidr: cidr, type: type)
       end
 
       ##
@@ -112,6 +112,15 @@ module Proteus
       def search_by_object_types(keyword, types = Proteus::Types::GENERICRECORD, start = 0, count = 10)
         response = call(:search_by_object_types, keyword: keyword, types: types, start: start, count: count)
         normalize(response).collect { |i| Proteus::ApiEntity.new(i) }
+      end
+
+      ##
+      # Update an entity
+      #   <message name="ProteusAPI_update">
+      #     <part name="entity" type="tns:APIEntity"/>
+      #   </message>
+      def update(entity)
+        call(:update, entity: {id: entity.id, name: entity.name, type: entity.type, properties: entity.properties.to_s})
       end
     end
   end
