@@ -5,358 +5,83 @@
 # Provides frontend CLI access to the Bluecat proteus API
 #
 # Usage:
-# ./proteus [global options] command [command options] [arguments...]
+# ./proteus command [command options] [arguments...]
 #
 
 require 'awesome_print'
-require 'gli'
+require 'cri'
 require 'yaml'
 require 'ostruct'
 require 'netaddr'
 require 'proteus'
+require 'cli'
 
-include GLI::App
+include ProteusCli
 
-program_desc '#AllyourDNSRecords are belong to us.'
+SUBCOMMANDS = %w(AliasCommands EntityCommands ExternalHostCommands HostCommands Ipv4Commands)
 
-desc 'Location of a config file (overrides environment variables and command line flags)'
-flag [:c, :config_file], type: String
-
-desc 'Url to proteus (not including URI to the WSDL) ENV:PROTEUS_URL'
-flag [:u, :url], type: String
-
-desc 'Username to use when connecting to proteus ENV:PROTEUS_USER'
-flag [:a, :username], type: String
-
-desc 'Password to use when connecting to proteus ENV:PROTEUS_PASS'
-flag [:p, :password], type: String
-
-desc 'Default view id to use when connecting to proteus ENV:PROTEUS_VIEWID'
-flag [:v, :viewid], type: String
-
-desc 'Log level (debug, info, warn, error)'
-flag [:l, :loglevel], type: String, default_value: 'warn'
-
-@config = OpenStruct.new
-pre do |global_options, _command, _options, _args|
-  if global_options[:config_file]
-    @config = OpenStruct.new(YAML.load_file(global_options[:config_file]))
+def configure(opts)
+  if opts[:config_file]
+    $stdout.puts "Reading configuration from #{opts[:config_file]}."
+    @config = OpenStruct.new(YAML.load_file(opts[:config_file]))
   else
-    @config = OpenStruct.new({
-      url: global_options[:url] || ENV['PROTEUS_URL'],
-      username: global_options[:username] || ENV['PROTEUS_USER'],
-      password: global_options[:password] || ENV['PROTEUS_PASS'],
-      default_viewid: global_options[:viewid] || ENV['PROTEUS_VIEWID'],
-      loglevel: global_options[:loglevel]
-    })
+    @config = OpenStruct.new(
+      {
+        url: opts[:url] || ENV['PROTEUS_URL'],
+        username: opts[:username] || ENV['PROTEUS_USER'],
+        password: opts[:password] || ENV['PROTEUS_PASS'],
+        viewid: opts[:viewid] || ENV['PROTEUS_VIEWID'],
+        loglevel: opts[:loglevel] || 'warn'
+      }
+    )
   end
 end
 
-around do |_global_options, _command, _options, _args,code|
-  @proteus = Proteus::Client.new(@config.to_h)
-  @proteus.login!
-  code.call
-  @proteus.logout!
+def proteus
+  c = Proteus::Client.new(@config.to_h).login!
+  yield(c)
+rescue Proteus::ApiEntityError::EntityNotFound => e
+  exit_2("Proteus Error, Entity Not Found: #{e.message}")
+rescue => e
+  exit_2("Proteus Error: #{e.message}")
+ensure
+  c.logout!
 end
 
-def validate_argnum(required, given)
-  raise "command requires #{required} args" unless required == given
+def exit_2(msg)
+  $stderr.puts msg
+  exit 2
 end
 
-def collect_pairs(arr = [])
-  arr.each_index.collect do |i|
-    name = arr.values_at(0..i).join('.')
-    hint = arr.values_at(i+1..arr.size).join('.')
-    [name, hint]
-  end.to_h
+root_cmd = Cri::Command.new_basic_root.modify do
+  name        'proteus'
+  usage       'proteus [command, command, ...] [options] [arguments]'
+  summary     '#AllyourDNSRecords are belong to us.'
+  description 'Provides access to proteus DNS and IP management through a CLI.'
+
+  option nil, :username, 'Proteus username ENV:PROTEUS_USER', argument: :required
+  option nil, :config_file, 'Location of a config (override env/flags)', argument: :required
+  option nil, :loglevel, 'Log level (debug|info|warn|error)', argument: :required
+  option nil, :password, 'Proteus password ENV:PROTEUS_PASS', argument: :required
+  option nil, :url, 'Proteus URL ENV:PROTEUS_URL', argument: :required
+  option nil, :viewid, 'Default view id ENV:PROTEUS_VIEWID', argument: :required
 end
 
-#####
-# Display System Information
-desc 'Displays system info'
-command :info do |c|
-  c.action do |_global_options, _options, args|
-    puts 'System Information:'
-    ap @proteus.system_info
-  end
-end
+root_cmd.define_command do
+  name    'info'
+  usage   'info'
+  summary 'displays proteus system information'
 
-#####
-# Actions specific to Host (A) records
-desc 'Performs actions on host records'
-command :host do |h|
-  h.desc 'Search for a host record (do not include domain!)'
-  h.arg_name 'keyword'
-  h.command :search do |s|
-    s.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      ap @proteus.search_by_object_types(args[0], Proteus::Types::HOSTRECORD)
-    end
-  end
-
-  h.desc 'finds an host record by a hint'
-  h.arg_name 'hint'
-  h.command :find do |f|
-    f.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      opts = "hint=#{args[0]}"
-      ap @proteus.get_host_records_by_hint(0, 10, opts)
-    end
-  end
-
-  h.desc 'Add a host record (A)'
-  h.arg_name 'fqdn ip'
-  h.command :add do |a|
-    a.action do |_global_options, _options, args|
-      validate_argnum(2, args.length)
-      ap @proteus.add_host_record(args[0], args[1])
-    end
-  end
-
-  h.desc 'Show a host record'
-  h.arg_name 'fqdn'
-  h.command :show do |s|
-    s.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      config_id = @proteus.get_entities.first.id
-      collect_pairs(args[0].split '.').each do |name, hint|
-        unless name == '' || hint == ''
-          # TODO: paging is required here -- probably need a helper
-          @proteus.get_zones_by_hint(config_id, 0, 10, "hint=#{hint}").each do |z|
-            begin
-              puts @proteus.get_entity_by_name(z.id, name, Proteus::Types::HOSTRECORD)
-            rescue Proteus::ApiEntityError::EntityNotFound
-              puts "#{name} not found in zone #{hint} with id #{z.id}"
-            end
-          end
-        end
-      end
-    end
+  run do |opts, _args|
+    configure(opts)
+    $stdout.puts 'System Information:'
+    ap proteus { |c| c.system_info }
   end
 end
 
-#####
-# Actions specific to Alias (CNAME) records
-desc 'Performs actions on alias records'
-command :alias do |c|
-  c.desc 'searches for an alias record (do not include domain!)'
-  c.arg_name 'keyword'
-  c.command :search do |s|
-    s.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      ap @proteus.search_by_object_types(args[0], Proteus::Types::CNAMERECORD)
-    end
-  end
-
-  c.desc 'finds an alias record by a hint'
-  c.arg_name 'hint'
-  c.command :find do |f|
-    f.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      opts = "hint=#{args[0]}"
-      ap @proteus.get_aliases_by_hint(0, 10, opts)
-    end
-  end
-
-  c.desc 'Add an alias (CNAME)'
-  c.arg_name 'alias_record linked_record'
-  c.command :add do |a|
-    a.action do |_global_options, _options, args|
-      validate_argnum(2, args.length)
-      ap @proteus.add_alias_record(args[0], args[1])
-    end
-  end
-
-  c.desc 'Show an alias (CNAME)'
-  c.arg_name 'alias'
-  c.command :show do |s|
-    s.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      config_id = @proteus.get_entities.first.id
-      collect_pairs(args[0].split '.').each do |name, hint|
-        unless name == '' || hint == ''
-          # TODO: paging is required here -- probably need a helper
-          @proteus.get_zones_by_hint(config_id, 0, 10, "hint=#{hint}").each do |z|
-            begin
-              puts @proteus.get_entity_by_name(z.id, name, Proteus::Types::CNAMERECORD)
-            rescue Proteus::ApiEntityError::EntityNotFound => e
-              puts "#{name} not found in zone #{hint} with id #{z.id}"
-            end
-          end
-        end
-      end
-    end
-  end
+SUBCOMMANDS.each do |m|
+  m_cmd = Object.const_get(m).instance_method(:define_root).bind(self).call(root_cmd)
+  Object.const_get(m).instance_method(:define_sub).bind(self).call(m_cmd)
 end
 
-#####
-# Actions specific to external (unmanaged) records
-desc 'Performs actions on external records'
-command :external do |e|
-  e.desc 'Search for an external record'
-  e.arg_name 'keyword'
-  e.command :search do |s|
-    s.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      ap @proteus.search_by_object_types(args[0], Proteus::Types::EXTERNALHOST)
-    end
-  end
-
-  e.desc 'Add external record'
-  e.arg_name 'name'
-  e.command :add do |a|
-    a.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      ap @proteus.add_external_host_record(args[0])
-    end
-  end
-
-  e.desc 'Show external record'
-  e.arg_name 'name'
-  e.command :show do |s|
-    s.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      ap @proteus.get_entity_by_name(@config.default_viewid, args[0], Proteus::Types::EXTERNALHOST)
-    end
-  end
-end
-
-#####
-# Actions specific to IPv4 address management
-desc 'Manage IPv4 addresses'
-command :ip do |i|
-  i.desc 'Identify the network by an existing ip in the network'
-  i.switch [:i, :useip], negatable: false
-
-  i.desc 'Show an IP address'
-  i.arg_name 'ipaddress [configuration_id]'
-  i.command :show do |s|
-    s.action do |_global_options, _options, args|
-      raise "command requires 1 args" unless args.length >= 1
-      config_id = args[1] || @proteus.get_entities.first.id
-      puts @proteus.get_ip4_address(config_id, args[0])
-    end
-  end
-
-  i.desc 'Show the next available IP address in the network.'
-  i.arg_name 'cidr|ipaddress'
-  i.command :next do |n|
-    n.action do |_global_options, options, args|
-      validate_argnum(1, args.length)
-      config_id = @proteus.get_entities.first.id
-
-      # If we are passed an IP, use it.  Otherwise generate a canary.
-      # Note: it's _possible_ the first IP in a net block is unallocated, so
-      # there could be an edge case where this fails.
-      if options[:useip] || args[0].end_with?('/32')
-        canary_ip = NetAddr::CIDR.create(args[0]).first
-      else
-        # first assignable IP (different from the _first_ IP)
-        canary_ip =  NetAddr::CIDR.create(args[0]).nth(1)
-      end
-
-      ipv4_id = @proteus.get_ip4_address(config_id, canary_ip).id
-      parent_id = @proteus.get_parent(ipv4_id).id
-      puts @proteus.get_next_ip4_address(parent_id)
-    end
-  end
-
-  i.desc 'Assigns the next available IP address in the network.'
-  i.arg_name 'cidr|ipaddress fqdn'
-  i.command :assign do |a|
-    a.action do |_global_options, options, args|
-      validate_argnum(2, args.length)
-      config_id = @proteus.get_entities.first.id
-
-      # If we are passed an IP, use it.  Otherwise generate a canary.
-      # Note: it's _possible_ the first IP in a net block is unallocated, so
-      # there could be an edge case where this fails.
-      if options[:useip] || args[0].end_with?('/32')
-        canary_ip = NetAddr::CIDR.create(args[0]).first
-      else
-        # first assignable IP (different from the _first_ IP)
-        canary_ip =  NetAddr::CIDR.create(args[0]).nth(1)
-      end
-
-      ipv4_id = @proteus.get_ip4_address(config_id, canary_ip).id
-      parent_id = @proteus.get_parent(ipv4_id).id
-
-      # Make assumptions about properties to pass to IP assignment
-      # hostname, viewId, reverseFlag, sameAsZoneFlag
-      hostinfo = "#{args[1]},#{@config.viewid},true,false"
-      properties = "name=#{args[1]}"
-      ap @proteus.assign_next_available_ip4_address(config_id, parent_id, '', hostinfo, 'MAKE_STATIC', properties)
-    end
-  end
-end
-
-#####
-# Actions specific to networks
-desc 'Manage IPv4 Networks'
-command :network do |c|
-  c.desc 'Show a list of networks'
-  c.command :all do |a|
-    a.action do |_global_options, _options, args|
-      config_id = args[1] || @proteus.get_entities.first.id
-      ap @proteus.get_ip4_networks_by_hint(config_id)
-    end
-  end
-
-  c.desc 'Show a list of allocated IPs in a network'
-  c.command :ips do |i|
-    i.action do |_global_options, options, args|
-      validate_argnum(1, args.length)
-      config_id = @proteus.get_entities.first.id
-
-      # If we are passed an IP, use it.  Otherwise generate a canary.
-      # Note: it's _possible_ the first IP in a net block is unallocated, so
-      # there could be an edge case where this fails.
-      if options[:useip] || args[0].end_with?('/32')
-        canary_ip = NetAddr::CIDR.create(args[0]).first
-      else
-        # first assignable IP (different from the _first_ IP)
-        canary_ip =  NetAddr::CIDR.create(args[0]).nth(1)
-      end
-      ipv4_id = @proteus.get_ip4_address(config_id, canary_ip).id
-      parent_id = @proteus.get_parent(ipv4_id).id
-      start = 0
-      count = 1
-      loop do
-        start += count
-        begin
-          @proteus.get_entities(parent_id, Proteus::Types::IP4ADDRESS, start, count).each { |e| ap e }
-        rescue  Proteus::ApiEntityError::EntityNotFound
-          break
-        end
-      end
-    end
-  end
-end
-
-
-#####
-# Actions specific to doing things by ID
-desc 'Manage Entities by id'
-command :id do |i|
-  i.desc 'Show an entity by id'
-  i.command :show do |s|
-    s.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      puts "\nRecord detail:"
-      ap @proteus.get_entity_by_id(args[0])
-
-      puts "\nParent Record:"
-      ap @proteus.get_parent(args[0])
-    end
-  end
-
-  i.desc 'Delete DNS record by id'
-  i.command :delete do |d|
-    d.action do |_global_options, _options, args|
-      validate_argnum(1, args.length)
-      ap @proteus.delete(args[0])
-    end
-  end
-end
-
-exit run(ARGV)
+root_cmd.run(ARGV)

@@ -39,6 +39,29 @@ module Proteus
         response = call(:get_host_records_by_hint, start: start, count: count, options: options)
         normalize(response).collect { |i| Proteus::ApiEntity.new(i) }
       end
+
+      ##
+      # Gets an individual host record by FQDN
+      def get_host_record(fqdn)
+        records = get_host_records_by_hint(0, 2, 'hint=^' + fqdn + '$')
+        @logger.debug("Got records: #{records.inspect}")
+        msg = 'Received too many records from search!'
+        raise Proteus::ApiError::NonDeterministicResponse, msg if records.size > 1
+        raise Proteus::ApiEntityError::EntityNotFound, fqdn + ' not found!' if records.size == 0
+        records.first
+      end
+
+      ##
+      # Delete a host record by name
+      def delete_host_record(fqdn)
+        delete(get_host_record(fqdn).id)
+      end
+
+      ##
+      # Delete an external record by name
+      def delete_external_record(name)
+        delete(get_entity_by_name(@view_id, name, Proteus::Types::EXTERNALHOST).id)
+      end
     end
   end
 end

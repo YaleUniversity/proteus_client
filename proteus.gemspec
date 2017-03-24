@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = %w(lib lib/proteus lib/actions)
 
   spec.add_dependency 'awesome_print', '~> 0'
-  spec.add_dependency 'gli', '~> 2.15'
+  spec.add_dependency 'cri', '~> 2.7.1'
   spec.add_dependency 'mini_portile2', '~> 2.0'
   spec.add_dependency 'netaddr', '~> 1.5', '>= 1.5.1'
   spec.add_dependency 'savon', '~> 2.0'

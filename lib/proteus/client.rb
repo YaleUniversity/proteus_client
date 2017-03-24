@@ -17,6 +17,7 @@ module Proteus
       loglevel = options[:loglevel] || 'warn'
       @logger = options[:logger] || Logger.new(STDOUT)
       @logger.level = Object.const_get("Logger::#{loglevel.upcase}")
+      @logger.debug("Configuring proteus client with #{options.inspect}")
 
       @username = options[:username]
       @password = options[:password]
