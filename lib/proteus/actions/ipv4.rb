@@ -51,19 +51,6 @@ module Proteus
       end
 
       ##
-      # Gets a list of IPv4 networks by a hint
-      #   <message name="ProteusAPI_getIP4NetworksByHint">
-      #     <part name="containerId" type="xsd:long"/>
-      #     <part name="start" type="xsd:int"/>
-      #     <part name="count" type="xsd:int"/>
-      #     <part name="options" type="xsd:string"/>
-      #   </message>
-      def get_ip4_networks_by_hint(container_id = 0, start = 0, count = 10, options = '')
-        response = call(:get_ip4_networks_by_hint, containerId: container_id, start: start, count: count, options: options)
-        normalize(response).collect { |i| Proteus::ApiEntity.new(i) }
-      end
-
-      ##
       # Assign the next ipv4 address by a CIDR
       #
       # This process uses a canary IP in from the cidr provided to get the

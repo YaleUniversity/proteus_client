@@ -1,0 +1,6 @@
+config/*
+.idea
+.rspec
+rspec.xml
+.ruby-*
+
