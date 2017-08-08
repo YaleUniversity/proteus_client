@@ -6,6 +6,7 @@ module Proteus
     require 'proteus/actions/alias'
     require 'proteus/actions/host'
     require 'proteus/actions/ipv4'
+    require 'proteus/actions/network'
     require 'proteus/actions/udf'
     require 'proteus/actions/zone'
 
@@ -22,6 +23,7 @@ module Proteus
     include Proteus::Actions::Alias
     include Proteus::Actions::Host
     include Proteus::Actions::Ipv4
+    include Proteus::Actions::Network
     include Proteus::Actions::Udf
     include Proteus::Actions::Zone
 
