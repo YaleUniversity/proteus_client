@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['tenyo.grozev@yale.edu, camden.fisher@yale.edu']
   spec.summary       = %q{Bluecat Proteus Client}
   spec.description   = %q{A ruby client for talking to bluecat proteus.}
-  spec.homepage      = 'TODO: Put your gems website or public repo URL here.'
+  spec.homepage      = 'https://github.com/YaleUniversity/proteus_client'
 
   spec.license       = 'Apache-2.0'
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
