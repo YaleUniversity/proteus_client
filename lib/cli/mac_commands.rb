@@ -16,7 +16,7 @@ module ProteusCli
         summary 'show mac address record'
 
         run do |opts, args|
-          exit_2 'Mac show requires 1 arg' unless args.size == 2
+          exit_2 'Mac show requires 1 arg' unless args.size == 1
           configure(opts)
           ap proteus { |c| c.get_mac_address(args[0]) }
         end
