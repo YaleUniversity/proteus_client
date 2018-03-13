@@ -13,8 +13,7 @@ module Proteus
   class SystemInfo
     include Proteus::Helpers
 
-    attr_reader :hostname, :version, :address, :cluster_role, :replication_role, :replication_status,
-                :entity_count, :database_size, :logged_in_users
+    attr_reader :hostname, :version, :address, :cluster_role, :replication_role, :replication_status, :entity_count, :database_size, :logged_in_users
 
     ##
     # initialize a proteus system information object from a properties hash
