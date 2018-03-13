@@ -14,16 +14,16 @@ module ProteusCli
         name    'add'
         usage   'add [options] macAddress [properties]'
         summary 'add mac address'
-        desc = 'Adds mac address'
+        desc = 'Adds mac address.'
         desc += 'Properties is a string of key value pairs. ie: "foo=bar|baz=biz|buz=boz'
         description desc
 
         option :r, :properties, 'Properties to send to proteus on creation', argument: :required
 
         run do |opts, args|
-            exit_2 'Alias add requires 1 or more args' unless args.size >= 1
+            exit_2 'Add MAC address requires 1 or more args' unless args.size >= 1
             configure(opts)
-            ap proteus { |c| c.add_alias_record(args[0], opts[:properties] || '') }
+            ap proteus { |c| c.add_mac_address(args[0], opts[:properties] || '') }
         end
       end
 

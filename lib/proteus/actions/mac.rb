@@ -14,7 +14,7 @@ module Proteus
       end
 
       ##
-      # Add an alias record
+      # Add mac address
       #   <message name="ProteusAPI_addMACAddress">
       #     <part name="configurationId" type="xsd:long"/>
       #     <part name="macAddress" type="xsd:string"/>
