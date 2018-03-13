@@ -12,13 +12,13 @@ module ProteusCli
     def define_sub(cmd)
       cmd.define_command do
         name    'show'
-        usage   'show [options] configurationId macAddress'
+        usage   'show [options] macAddress'
         summary 'show mac address record'
 
         run do |opts, args|
-          exit_2 'Mac show requires 2 args' unless args.size >= 2
+          exit_2 'Mac show requires 1 arg' unless args.size == 2
           configure(opts)
-          ap proteus { |c| c.get_mac_address(args[0], args[1]) }
+          ap proteus { |c| c.get_mac_address(args[0]) }
         end
       end
 
