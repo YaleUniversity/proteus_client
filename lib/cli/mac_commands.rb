@@ -50,7 +50,7 @@ module ProteusCli
         option :s, :start, 'Which record to start with, ie. offset (default: 0)', argument: :required
 
         run do |opts, args|
-          exit_2 'Mac search requires 1 args' unless args.size == 1
+          exit_2 'MAC search requires 1 args' unless args.size == 1
           configure(opts)
           opts[:start] ||= 0
           opts[:limit] ||= 10
