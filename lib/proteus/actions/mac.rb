@@ -23,6 +23,17 @@ module Proteus
       def add_mac_address(macAddress, properties = '')
         call(:add_mac_address, configurationId: @view_id, macAddress: macAddress, properties: properties)
       end
+
+      ##
+      # Associate mac address with mac pool
+      #   <message name="ProteusAPI_associateMACAddressWithPool">
+      #     <part name="configurationId" type="xsd:long"/>
+      #     <part name="macAddress" type="xsd:string"/>
+      #     <part name="macPool" type="xsd:long"/>
+      #   </message>
+      def associate_mac_address_with_pool(macAddress, macPool)
+        call(:associate_mac_address_with_pool, configurationId: @view_id, macAddress: macAddress, macPool: macPool)
+      end
     end
   end
 end

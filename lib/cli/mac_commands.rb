@@ -33,7 +33,7 @@ module ProteusCli
         summary 'show mac address record'
 
         run do |opts, args|
-          exit_2 'Mac show requires 1 arg' unless args.size == 1
+          exit_2 'MAC show requires 1 arg' unless args.size == 1
           configure(opts)
           ap proteus { |c| c.get_mac_address(args[0]) }
         end
@@ -56,6 +56,18 @@ module ProteusCli
           opts[:limit] ||= 10
           type = Proteus::Types::MACADDRESS
           ap proteus { |c| c.search_by_object_types(args[0], type, opts[:start], opts[:limit]) }
+        end
+
+        cmd.define_command do
+          name    'associate'
+          usage   'associate [options] macAddress macPool'
+          summary 'Associate a mac address record with a mac pool record'
+  
+          run do |opts, args|
+            exit_2 'MAC associate requires 1 arg' unless args.size == 1
+            configure(opts)
+            ap proteus { |c| c.associate_mac_address_with_pool(args[0]) }
+          end
         end
       end
     end
