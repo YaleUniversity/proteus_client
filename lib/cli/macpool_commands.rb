@@ -1,5 +1,5 @@
 module ProteusCli
-  module MacCommands
+  module MacPoolCommands
     def define_root(cmd)
       cmd.define_command do
         name        'macpool'
