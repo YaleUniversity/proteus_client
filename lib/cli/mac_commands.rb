@@ -50,24 +50,24 @@ module ProteusCli
         option :s, :start, 'Which record to start with, ie. offset (default: 0)', argument: :required
 
         run do |opts, args|
-          exit_2 'MAC search requires 1 args' unless args.size == 1
+          exit_2 'MAC search requires 1 arg' unless args.size == 1
           configure(opts)
           opts[:start] ||= 0
           opts[:limit] ||= 10
           type = Proteus::Types::MACADDRESS
           ap proteus { |c| c.search_by_object_types(args[0], type, opts[:start], opts[:limit]) }
         end
+      end
 
-        cmd.define_command do
-          name    'associate'
-          usage   'associate [options] macAddress macPool'
-          summary 'Associate a mac address record with a mac pool record'
-  
-          run do |opts, args|
-            exit_2 'MAC associate requires 2 args: macAddress & macPool' unless args.size == 2
-            configure(opts)
-            ap proteus { |c| c.associate_mac_address_with_pool(args[0], args[1]) }
-          end
+      cmd.define_command do
+        name    'associate'
+        usage   'associate [options] macAddress macPool'
+        summary 'Associate a mac address record with a mac pool record'
+
+        run do |opts, args|
+          exit_2 'MAC associate requires 2 args: macAddress & macPool' unless args.size == 2
+          configure(opts)
+          ap proteus { |c| c.associate_mac_address_with_pool(args[0], args[1]) }
         end
       end
     end
