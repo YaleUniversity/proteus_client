@@ -66,7 +66,7 @@ module ProteusCli
           run do |opts, args|
             exit_2 'MAC associate requires 2 args: macAddress & macPool' unless args.size == 2
             configure(opts)
-            ap proteus { |c| c.associate_mac_address_with_pool(args[0]) }
+            ap proteus { |c| c.associate_mac_address_with_pool(args[0], args[1]) }
           end
         end
       end
