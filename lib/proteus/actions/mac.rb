@@ -29,10 +29,10 @@ module Proteus
       #   <message name="ProteusAPI_associateMACAddressWithPool">
       #     <part name="configurationId" type="xsd:long"/>
       #     <part name="macAddress" type="xsd:string"/>
-      #     <part name="macPool" type="xsd:long"/>
+      #     <part name="poolId" type="xsd:long"/>
       #   </message>
-      def associate_mac_address_with_pool(macAddress, macPool)
-        call(:associate_mac_address_with_pool, configurationId: @view_id, macAddress: macAddress, macPool: macPool)
+      def associate_mac_address_with_pool(macAddress, poolId)
+        call(:associate_mac_address_with_pool, configurationId: @view_id, macAddress: macAddress, poolId: poolId)
       end
     end
   end
