@@ -5,7 +5,7 @@ module ProteusCli
         name        'mac'
         usage       'mac [options]'
         summary     'manage mac address records'
-        description 'Create/find/delete mac address in proteus'
+        description 'Create/find/delete a MAC address in proteus'
       end
     end
 
@@ -14,7 +14,7 @@ module ProteusCli
         name    'add'
         usage   'add [options] macAddress [properties]'
         summary 'add mac address'
-        desc = 'Adds mac address.'
+        desc = 'Adds MAC a address to the Proteus database.'
         desc += 'Properties is a string of key value pairs. ie: "foo=bar|baz=biz|buz=boz'
         description desc
 
@@ -43,7 +43,7 @@ module ProteusCli
         name    'search'
         usage   'search [options] term'
         summary 'searches for mac address records'
-        desc = 'Searches for mac address records'
+        desc = 'Searches for MAC address records'
         description desc
 
         option :l, :limit, 'How many records to return (max: 10, default: 10)', argument: :required
@@ -64,7 +64,7 @@ module ProteusCli
           summary 'Associate a mac address record with a mac pool record'
   
           run do |opts, args|
-            exit_2 'MAC associate requires 1 arg' unless args.size == 1
+            exit_2 'MAC associate requires 2 args: macAddress & macPool' unless args.size == 2
             configure(opts)
             ap proteus { |c| c.associate_mac_address_with_pool(args[0]) }
           end
