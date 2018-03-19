@@ -51,6 +51,9 @@ COMMANDS
     id           manage proteus entities by id
     info         displays proteus system information
     ip           manage ip address records
+    mac          manage mac address records
+    macpool      manage macpools
+    network      manage networks
 
 OPTIONS
        --config_file=<value>      Location of a config (override env/flags)
@@ -65,6 +68,8 @@ OPTIONS
 additional help is available from the subcommands.  For example:
 
 ```
+$ proteus ip -h
+
 NAME
     ip - manage ip address records
 
@@ -132,6 +137,7 @@ log_level: warn
 ### Authors
   - Camden Fisher (camden.fisher@yale.edu)
   - Tenyo Grozev (tenyo.grozev@yale.edu)
+  - Jose Andrade (jose.andrade@yale.edu)
 
 ### License
 ```
