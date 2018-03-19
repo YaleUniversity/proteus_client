@@ -4,3 +4,4 @@ rspec.xml
 coverage
 doc
 config/.*
+config/config.yml

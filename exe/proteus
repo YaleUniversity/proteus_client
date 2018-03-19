@@ -18,7 +18,7 @@ require 'cli'
 
 include ProteusCli
 
-SUBCOMMANDS = %w(AliasCommands EntityCommands ExternalHostCommands HostCommands Ipv4Commands NetworkCommands)
+SUBCOMMANDS = %w(AliasCommands EntityCommands ExternalHostCommands HostCommands Ipv4Commands NetworkCommands MacCommands MacPoolCommands)
 
 def configure(opts)
   if opts[:config_file]

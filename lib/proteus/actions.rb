@@ -9,13 +9,17 @@ module Proteus
     require 'proteus/actions/network'
     require 'proteus/actions/udf'
     require 'proteus/actions/zone'
+    require 'proteus/actions/mac'
+    require 'proteus/actions/macpool'
 
     # Only allow deletes for certain record types for now
     ALLOWDELETE = [
       Proteus::Types::HOSTRECORD,
       Proteus::Types::EXTERNALHOST,
       Proteus::Types::CNAMERECORD,
-      Proteus::Types::IP4ADDRESS
+      Proteus::Types::IP4ADDRESS,
+      Proteus::Types::MACADDRESS,
+      Proteus::Types::MACPOOL
     ]
 
     include Proteus::Helpers
@@ -26,6 +30,8 @@ module Proteus
     include Proteus::Actions::Network
     include Proteus::Actions::Udf
     include Proteus::Actions::Zone
+    include Proteus::Actions::Mac
+    include Proteus::Actions::Macpool
 
     ##
     # Makes a call to the proteus API

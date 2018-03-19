@@ -34,6 +34,8 @@ The proteus command line utility can be configured via files, environment variab
 
 ## Usage
 ```
+$ proteus -h
+
 NAME
     proteus - #AllyourDNSRecords are belong to us.
 
@@ -51,6 +53,9 @@ COMMANDS
     id           manage proteus entities by id
     info         displays proteus system information
     ip           manage ip address records
+    mac          manage mac address records
+    macpool      manage macpools
+    network      manage networks
 
 OPTIONS
        --config_file=<value>      Location of a config (override env/flags)
@@ -65,6 +70,8 @@ OPTIONS
 additional help is available from the subcommands.  For example:
 
 ```
+$ proteus ip -h
+
 NAME
     ip - manage ip address records
 
@@ -93,6 +100,8 @@ OPTIONS FOR PROTEUS
 ```
 
 ```
+$ proteus ip assign -h
+
 NAME
     assign - assign the next available ip by cidr
 
@@ -119,6 +128,10 @@ OPTIONS FOR IP
        --viewid=<value>           Default view id ENV:PROTEUS_VIEWID
 ```
 
+```
+$ proteus mac add 00-00-00-00-00-00 --config_file config/config.yml
+```
+
 ### Example config file:
 
 ```yaml
@@ -132,6 +145,7 @@ log_level: warn
 ### Authors
   - Camden Fisher (camden.fisher@yale.edu)
   - Tenyo Grozev (tenyo.grozev@yale.edu)
+  - Jose Andrade (jose.andrade@yale.edu)
 
 ### License
 ```

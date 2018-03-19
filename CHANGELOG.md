@@ -27,3 +27,9 @@
 # 0.3.0
 * Convert to CRI from GLI
 * Add helper methods for getting/deleting/searching
+
+# 0.4.0
+* Add support for network
+
+# 0.4.1
+* Add support for MAC addresses and MAC Pools
