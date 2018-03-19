@@ -34,6 +34,8 @@ The proteus command line utility can be configured via files, environment variab
 
 ## Usage
 ```
+$ proteus -h
+
 NAME
     proteus - #AllyourDNSRecords are belong to us.
 
@@ -98,6 +100,8 @@ OPTIONS FOR PROTEUS
 ```
 
 ```
+$ proteus ip assign -h
+
 NAME
     assign - assign the next available ip by cidr
 
@@ -122,6 +126,10 @@ OPTIONS FOR IP
        --url=<value>              Proteus URL ENV:PROTEUS_URL
        --username=<value>         Proteus username ENV:PROTEUS_USER
        --viewid=<value>           Default view id ENV:PROTEUS_VIEWID
+```
+
+```
+$ proteus mac add 00-00-00-00-00-00 --config_file config/config.yml
 ```
 
 ### Example config file:
