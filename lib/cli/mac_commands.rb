@@ -43,19 +43,27 @@ module ProteusCli
         name    'search'
         usage   'search [options] term'
         summary 'searches for mac address records'
-        desc = 'Searches for MAC address records'
+        desc = 'Searches for MAC address records by hint or keyword. The default is to search by hint.  Passing '
+        desc += '-k/--keyword will change the term to a keyword. The following wildcards are supported in the '
+        desc += 'hint option. * ^-matches the beginning of a string. * $-matches the end of a string. '
+        desc += '* ?-matches any one character * *-matches one or more characters within a string.'
         description desc
 
+        flag :k, :keyword, 'Given term is a "keyword"'
         option :l, :limit, 'How many records to return (max: 10, default: 10)', argument: :required
         option :s, :start, 'Which record to start with, ie. offset (default: 0)', argument: :required
 
         run do |opts, args|
-          exit_2 'MAC search requires 1 arg' unless args.size == 1
+          exit_2 'MAC address search requires 1 arg' unless args.size == 1
           configure(opts)
           opts[:start] ||= 0
           opts[:limit] ||= 10
-          type = Proteus::Types::MACADDRESS
-          ap proteus { |c| c.search_by_object_types(args[0], type, opts[:start], opts[:limit]) }
+          if opts[:keyword]
+            type = Proteus::Types::MACADDRESS
+            ap proteus { |c| c.search_by_object_types(args[0], type, opts[:start], opts[:limit]) }
+          else
+            ap proteus { |c| c.get_aliases_by_hint(opts[:start], opts[:limit], 'hint=' + args[0]) }
+          end
         end
       end
 
