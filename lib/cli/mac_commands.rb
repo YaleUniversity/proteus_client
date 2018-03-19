@@ -4,8 +4,8 @@ module ProteusCli
       cmd.define_command do
         name        'mac'
         usage       'mac [options]'
-        summary     'manage mac address records'
-        description 'Create/find/delete a MAC address in proteus'
+        summary     'Manage MAC address records'
+        description 'Create/find/delete a MAC address in Proteus'
       end
     end
 
@@ -13,15 +13,15 @@ module ProteusCli
       cmd.define_command do
         name    'add'
         usage   'add [options] macAddress [properties]'
-        summary 'add mac address'
-        desc = 'Adds MAC a address to the Proteus database.'
+        summary 'Adds a MAC address'
+        desc = 'Adds a MAC address to the Proteus database.'
         desc += 'Properties is a string of key value pairs. ie: "foo=bar|baz=biz|buz=boz'
         description desc
 
-        option :r, :properties, 'Properties to send to proteus on creation', argument: :required
+        option :r, :properties, 'Properties to send to Proteus on creation', argument: :required
 
         run do |opts, args|
-            exit_2 'Add MAC address requires 1 or more args' unless args.size >= 1
+            exit_2 'mac add requires 1 or more args' unless args.size >= 1
             configure(opts)
             ap proteus { |c| c.add_mac_address(args[0], opts[:properties] || '') }
         end
@@ -30,10 +30,10 @@ module ProteusCli
       cmd.define_command do
         name    'show'
         usage   'show [options] macAddress'
-        summary 'show mac address record'
+        summary 'Shows a MAC address record'
 
         run do |opts, args|
-          exit_2 'MAC show requires 1 arg' unless args.size == 1
+          exit_2 'mac show requires 1 arg' unless args.size == 1
           configure(opts)
           ap proteus { |c| c.get_mac_address(args[0]) }
         end
@@ -42,7 +42,7 @@ module ProteusCli
       cmd.define_command do
         name    'search'
         usage   'search [options] term'
-        summary 'searches for mac address records'
+        summary 'Searches for MAC address records'
         desc = 'Searches for MAC address records by hint or keyword. The default is to search by hint.  Passing '
         desc += '-k/--keyword will change the term to a keyword. The following wildcards are supported in the '
         desc += 'hint option. * ^-matches the beginning of a string. * $-matches the end of a string. '
@@ -54,7 +54,7 @@ module ProteusCli
         option :s, :start, 'Which record to start with, ie. offset (default: 0)', argument: :required
 
         run do |opts, args|
-          exit_2 'MAC address search requires 1 arg' unless args.size == 1
+          exit_2 'mac search requires 1 arg' unless args.size == 1
           configure(opts)
           opts[:start] ||= 0
           opts[:limit] ||= 10
@@ -73,7 +73,7 @@ module ProteusCli
         summary 'Associate a mac address record with a mac pool record'
 
         run do |opts, args|
-          exit_2 'MAC associate requires 2 args: "MAC address" & "MAC pool ID"' unless args.size == 2
+          exit_2 'mac associate requires 2 args: "MAC address" & "MAC pool ID"' unless args.size == 2
           configure(opts)
           ap proteus { |c| c.associate_mac_address_with_pool(args[0], args[1]) }
         end
