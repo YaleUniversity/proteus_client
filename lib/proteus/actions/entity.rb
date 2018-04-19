@@ -5,6 +5,20 @@ module Proteus
     # through the proteus API.
     module Entity
       ##
+      # Search for entities by object types and a keyword
+      #   <message name="ProteusAPI_customSearch">
+      #     <part name="filters" type="ns6:stringArray"/>
+      #     <part name="type" type="xsd:string"/>
+      #     <part name="options" type="ns7:stringArray"/>
+      #     <part name="start" type="xsd:int"/>
+      #     <part name="count" type="xsd:int"/>
+      #   </message>
+      def custom_search(filters, type, options = [], start = 0, count = 100)
+        response = call(:custom_search, filters: { item: filters }, type: type, options: { item: options }, start: start, count: count)
+        normalize(response).collect { |i| Proteus::ApiEntity.new(i) }
+      end
+
+      ##
       # Gets the parent entity from an entityId
       #   <message name="ProteusAPI_getParent">
       #     <part name="entityId" type="xsd:long"/>
