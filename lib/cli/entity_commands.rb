@@ -63,6 +63,21 @@ module ProteusCli
           ap proteus { |c| c.get_parent(args[0]) }
         end
       end
+
+      cmd.define_command do
+        name    'update'
+        usage   'update [options] id properties'
+        summary 'update the properties of an entity'
+        desc = 'Updates the properties of an entity. '
+        desc += 'Properties needs to be a list of pipe-separated key=value pairs, e.g. "name=Me|exp_date=2019-04-20 16:20:00"'
+        description desc
+
+        run do |opts, args|
+          exit_2 'update requires 2 args' unless args.size == 2
+          configure(opts)
+          ap proteus { |c| c.update_properties(args[0], args[1]) }
+        end
+      end
     end
   end
 end

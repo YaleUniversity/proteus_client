@@ -134,7 +134,18 @@ module Proteus
       #     <part name="entity" type="tns:APIEntity"/>
       #   </message>
       def update(entity)
-        call(:update, entity: {id: entity.id, name: entity.name, type: entity.type, properties: entity.properties.to_s})
+        call(:update, entity: { id: entity.id, name: entity.name, type: entity.type, properties: entity.properties.to_s })
+      end
+
+      ##
+      # Update the properties for a given entity
+      def update_properties(id, properties)
+        entity = get_entity_by_id(id)
+        current_properties = entity.to_h[:properties]
+        new_properties = decompose(properties)
+        entity.properties = Proteus::EntityProperties.new(compose(current_properties.merge(new_properties)))
+        update(entity)
+        entity
       end
     end
   end
