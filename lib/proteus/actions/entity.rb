@@ -5,6 +5,20 @@ module Proteus
     # through the proteus API.
     module Entity
       ##
+      # Search for entities by object types and a keyword
+      #   <message name="ProteusAPI_customSearch">
+      #     <part name="filters" type="ns6:stringArray"/>
+      #     <part name="type" type="xsd:string"/>
+      #     <part name="options" type="ns7:stringArray"/>
+      #     <part name="start" type="xsd:int"/>
+      #     <part name="count" type="xsd:int"/>
+      #   </message>
+      def custom_search(filters, type, options = [], start = 0, count = 100)
+        response = call(:custom_search, filters: { item: filters }, type: type, options: { item: options }, start: start, count: count)
+        normalize(response).collect { |i| Proteus::ApiEntity.new(i) }
+      end
+
+      ##
       # Gets the parent entity from an entityId
       #   <message name="ProteusAPI_getParent">
       #     <part name="entityId" type="xsd:long"/>
@@ -120,7 +134,18 @@ module Proteus
       #     <part name="entity" type="tns:APIEntity"/>
       #   </message>
       def update(entity)
-        call(:update, entity: {id: entity.id, name: entity.name, type: entity.type, properties: entity.properties.to_s})
+        call(:update, entity: { id: entity.id, name: entity.name, type: entity.type, properties: entity.properties.to_s })
+      end
+
+      ##
+      # Update the properties for a given entity
+      def update_properties(id, properties)
+        entity = get_entity_by_id(id)
+        current_properties = entity.to_h[:properties]
+        new_properties = decompose(properties)
+        entity.properties = Proteus::EntityProperties.new(compose(current_properties.merge(new_properties)))
+        update(entity)
+        entity
       end
     end
   end
