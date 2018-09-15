@@ -22,6 +22,9 @@ SUBCOMMANDS = %w(AliasCommands EntityCommands ExternalHostCommands HostCommands 
 
 def configure(opts)
   if opts[:config_file]
+    if !(File.file?(opts[:config_file]))
+      exit_2("config file not found: #{opts[:config_file]}")
+    end
     $stdout.puts "Reading configuration from #{opts[:config_file]}."
     @config = OpenStruct.new(YAML.load_file(opts[:config_file]))
   else
@@ -34,6 +37,13 @@ def configure(opts)
         loglevel: opts[:loglevel] || 'warn'
       }
     )
+  end
+  # sanity check variables before proceeding to login!
+  if @config.url == nil ||
+     @config.username == nil ||
+     @config.password == nil ||
+     @config.viewid == nil
+    exit_2("configs missing")
   end
 end
 
