@@ -139,13 +139,22 @@ url: 'https://proteus.example.com'
 username: 'api_user'
 password: 'xxx'
 viewid: '123456'
-log_level: warn
+loglevel: warn
 ```
 
 ### Authors
   - Camden Fisher (camden.fisher@yale.edu)
   - Tenyo Grozev (tenyo.grozev@yale.edu)
   - Jose Andrade (jose.andrade@yale.edu)
+
+### Issues
+  - Badly formed command line authentication arguments will return 'undefined method logout!'.  Arguments such as --config_file go at the end of the command after commands and options.  A mis-formed YAML --config_file sometimes produces 'undefined method logout!'
+  - it's better to use no 'equals' sign, just a space, for the arguments
+```
+     E.g.,
+       proteus info --config_file config/config.yml
+       proteus info --config_file ~/proteus.onfig
+```
 
 ### License
 ```
